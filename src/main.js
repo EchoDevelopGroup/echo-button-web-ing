@@ -7,6 +7,8 @@ import ElementUI from 'element-ui'
 import * as api from '@/api'
 import { startMock } from './mock'
 
+startMock()
+
 Vue.use(ElementUI)
 
 Vue.config.productionTip = false
@@ -19,5 +21,4 @@ new Vue({
 
 window._ = () => {
   window.api = api
-  startMock()
 }
