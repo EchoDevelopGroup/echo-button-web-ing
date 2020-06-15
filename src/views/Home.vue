@@ -8,6 +8,16 @@
         <el-button @click="playVoice(voice)">{{ voice.voice_name }}</el-button>
       </div>
     </div>
+
+    <div>
+      <p>这是一个超丑的上传界面</p>
+      <input type="file" name="" id="" @change="onChooseFile" ref="file">
+      <span>语音名称</span> <el-input v-model="form.voiceName" label="语音名称"></el-input>
+      <span>语音信息</span> <el-input v-model="form.voiceDetail" label="语音信息"></el-input>
+      <span>语音分类</span> <el-input v-model="form.voiceClassification" label="语音分类"></el-input>
+      <span>上传用户</span> <el-input v-model="form.uploadUser" label="上传用户"></el-input>
+      <el-button @click="upload()">上传</el-button>
+    </div>
   </div>
 </template>
 
@@ -27,7 +37,14 @@ export default {
       /**
        * @type {api.ButtonOverview[]} 所有的桃语音
        */
-      voices: []
+      voices: [],
+      form: {
+        file: null,
+        voiceName: '',
+        voiceDetail: '',
+        voiceClassification: '',
+        uploadUser: ''
+      }
     }
   },
   created() {
@@ -58,6 +75,20 @@ export default {
       const url = voice.voice_url
       const audio = new Audio(url)
       audio.play()
+    },
+    onChooseFile(e) {
+      const dom = this.$refs.file
+      this.form.file = dom.files[0]
+      console.log(this.form.file)
+    },
+    async upload() {
+      try {
+        await api.uploadButton(this.form.file, this.form.voiceName, this.form.voiceDetail, this.form.voiceClassification, this.form.uploadUser)
+        this.$message.success('上传成功')
+      } catch (err) {
+        this.$message.error(err.message)
+        console.error(err)
+      }
     }
   }
 }
