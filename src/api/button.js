@@ -15,7 +15,7 @@ import { objectToFormData } from './form'
 
 /**
  * 按钮总览
- * @returns {Promise<ButtonOverview>}
+ * @returns {Promise<ButtonOverview[]>}
  */
 export function getOverview () {
   return request({

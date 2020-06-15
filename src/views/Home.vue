@@ -23,6 +23,9 @@ export default {
   },
   data () {
     return {
+      /**
+       * @type {api.ButtonOverview[]} 所有的桃语音
+       */
       voices: []
     }
   },
@@ -32,6 +35,13 @@ export default {
   methods: {
     async getVoices () {
       this.voices = await api.getOverview()
+    },
+    /**
+     * 预先加载所有的音频
+     */
+    preFetch () {
+      this.voices.map(it => {
+      })
     },
     playVoice (voice) {
       const url = voice.voice_url
