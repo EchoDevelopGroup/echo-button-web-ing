@@ -17,7 +17,7 @@ import { objectToFormData } from './form'
  * 按钮总览
  * @returns {Promise<ButtonOverview[]>}
  */
-export function getOverview () {
+export function getOverview() {
   return request({
     url: 'button/overview',
     method: 'get'
@@ -34,7 +34,7 @@ export function getOverview () {
  * @param {string} voiceId 语音ID
  * @returns {Promise<ButtonUrl>}
  */
-export function playButton (voiceId) {
+export function playButton(voiceId) {
   return request({
     url: 'button/play',
     method: 'post',
@@ -53,7 +53,7 @@ export function playButton (voiceId) {
  * @param {string} uploadUser 上传用户
  * @returns {Promise<void>}
  */
-export function uploadButton (file, voiceName, voiceDetail, voiceClassification, uploadUser) {
+export function uploadButton(file, voiceName, voiceDetail, voiceClassification, uploadUser) {
   return request({
     url: 'button/upload',
     method: 'post',
@@ -72,7 +72,7 @@ export function uploadButton (file, voiceName, voiceDetail, voiceClassification,
  * @param {string} voiceId 语音ID
  * @returns {Promise<void>}
  */
-export function removeButton (voiceId) {
+export function removeButton(voiceId) {
   return request({
     url: 'button/delete',
     method: 'post',
@@ -87,7 +87,7 @@ export function removeButton (voiceId) {
  * @param {string} userName 用户名
  * @param {string} userPassword 密码
  */
-export function login (userName, userPassword) {
+export function login(userName, userPassword) {
   return request({
     url: 'user/authority',
     method: 'post',

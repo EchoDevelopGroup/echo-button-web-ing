@@ -2,7 +2,7 @@
  * 把输入对象包装成FormData
  * @param {object} input 输入对象
  */
-export function objectToFormData (input) {
+export function objectToFormData(input) {
   const form = new FormData()
   for (const k in input) {
     const v = input[k]

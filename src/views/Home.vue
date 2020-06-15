@@ -21,7 +21,7 @@ export default {
   components: {
     HelloWorld
   },
-  data () {
+  data() {
     return {
       /**
        * @type {api.ButtonOverview[]} 所有的桃语音
@@ -29,21 +29,21 @@ export default {
       voices: []
     }
   },
-  created () {
+  created() {
     this.getVoices()
   },
   methods: {
-    async getVoices () {
+    async getVoices() {
       this.voices = await api.getOverview()
     },
     /**
      * 预先加载所有的音频
      */
-    preFetch () {
+    preFetch() {
       this.voices.map(it => {
       })
     },
-    playVoice (voice) {
+    playVoice(voice) {
       const url = voice.voice_url
       const audio = new Audio(url)
       audio.play()

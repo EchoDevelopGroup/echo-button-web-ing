@@ -91,7 +91,7 @@ const voices = [
   }
 ]
 
-export function getOverview (config) {
+export function getOverview(config) {
   return {
     code: 0,
     message: '',
@@ -99,7 +99,7 @@ export function getOverview (config) {
   }
 }
 
-export function playButton (config) {
+export function playButton(config) {
   return {
     code: 0,
     message: '',
@@ -109,7 +109,7 @@ export function playButton (config) {
   }
 }
 
-export function uploadButton (config) {
+export function uploadButton(config) {
   // const input = JSON.parse(config.body)
   return {
     code: 0,
@@ -117,14 +117,14 @@ export function uploadButton (config) {
   }
 }
 
-export function removeButton (config) {
+export function removeButton(config) {
   return {
     code: 0,
     message: ''
   }
 }
 
-export function login (config) {
+export function login(config) {
   return {
     code: 0,
     message: ''
