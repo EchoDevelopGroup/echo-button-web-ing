@@ -5,6 +5,7 @@ import { objectToFormData } from './form'
  * @typedef ButtonItem
  * @property {string} voice_id 语音ID
  * @property {string} voice_name 语音名称
+ * @property {string} voice_url 语音URL
  */
 
 /**

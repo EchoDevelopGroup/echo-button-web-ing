@@ -15,6 +15,7 @@
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
 import * as api from '@/api'
+import { preFetchAudio } from '@/util/audio'
 
 export default {
   name: 'Home',
@@ -35,13 +36,23 @@ export default {
   methods: {
     async getVoices() {
       this.voices = await api.getOverview()
+      await this.preFetch()
+      console.log('load ok')
     },
     /**
      * 预先加载所有的音频
      */
     preFetch() {
-      this.voices.map(it => {
-      })
+      return Promise.all(
+        this.voices.map(it => {
+          return Promise.all(
+            it.button_list.map(async (v) => {
+              await preFetchAudio(v.voice_url)
+              console.log(v.voice_name, 'load over')
+            })
+          )
+        })
+      )
     },
     playVoice(voice) {
       const url = voice.voice_url
