@@ -7,8 +7,6 @@
 次要工程师: FinnTenzor  
 日期: 2020-06-24  
 仓库: [https://gitee.com/echodevelopgroup/echo-button-web-ing](https://gitee.com/echodevelopgroup/echo-button-web-ing)  
-仓库类型: 私有  
-说明: 暂时保持私有库，在没有明确需求前不开源  
 
 ## 框架
 
@@ -134,16 +132,16 @@ yarn build
 
 <!-- <input type="checkbox" checked disabled> -->
 
-1. 播放的页面 <input type="checkbox" disabled>
-2. 上传的页面 <input type="checkbox" disabled>
-3. 管理页面 <input type="checkbox" disabled>
-4. 序列播放 <input type="checkbox" disabled>
-5. 自定义播放器 <input type="checkbox" disabled>
-6. 自定义控制台 <input type="checkbox" disabled>
+1. [ ] 播放的页面
+2. [ ] 上传的页面
+3. [ ] 管理页面
+4. [ ] 序列播放
+5. [ ] 自定义播放器
+6. [ ] 自定义控制台
 
 ## 任务
 
-1. 导航菜单
-2. 按钮
-3. 上传方框
-4. 自定义组件
+1. [ ] 导航菜单
+2. [ ] 按钮
+3. [ ] 上传方框
+4. [ ] 自定义组件
