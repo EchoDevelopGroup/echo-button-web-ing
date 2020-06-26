@@ -58,6 +58,7 @@ export default {
 
 <style>
 .upload-card {
+  box-sizing: border-box;
   width: 330px;
   height: 210px;
   padding: 15px;
