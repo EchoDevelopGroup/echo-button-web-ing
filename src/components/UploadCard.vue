@@ -73,7 +73,8 @@ export default {
   align-items: center;
   width: 100%;
   height: 100%;
-  border: 5px dashed #fff;
+  border: 18px solid #fff;
+  border-image: url('~@/assets/upload-border.png') 18 round;
   border-radius: 15px;
   cursor: pointer;
 }
