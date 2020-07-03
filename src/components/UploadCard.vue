@@ -64,6 +64,13 @@ export default {
   padding: 15px;
   border-radius: 15px;
   background-color: #ffa6c6;
+  /**
+   * 21deg = 180deg - 159deg
+   * 0.5px = 5px * 0.2775 * sin(21deg)
+   * 1.3px = 5px * 0.2775 * cos(21deg)
+   * 7.2px = 26px * 0.2775
+   */
+  box-shadow: 0.5px 1.3px 7.2px #963a5b5c;
 }
 .upload-card-box {
   box-sizing: border-box;
