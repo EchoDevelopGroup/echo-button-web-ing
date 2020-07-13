@@ -1,5 +1,5 @@
 <template>
-  <div class="upload-notice">
+  <div class="upload-notice primary-shadow">
     <slot>
       <span class="upload-notice-text">{{ content }}</span>
     </slot>
@@ -34,13 +34,6 @@ export default {
   font-size: 19px;
   color: #fff;
   white-space: pre;
-  /**
-   * 21deg = 180deg - 159deg
-   * 0.5px = 5px * 0.2775 * sin(21deg)
-   * 1.3px = 5px * 0.2775 * cos(21deg)
-   * 7.2px = 26px * 0.2775
-   */
-  box-shadow: 0.5px 1.3px 7.2px #963a5b5c;
 }
 .upload-notice-text {
   width: 100%;
