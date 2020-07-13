@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-    <div class="navbar">
+    <main-layout>
+      <router-view></router-view>
+    </main-layout>
+    <!-- <div class="navbar">
       <div class="navbar-inner">
         <a class="navbar-title" href="https://www.sepeach.com/">桃按钮</a>
         <a class="navbar-subtitle" href="https://rec.sepeach.com/">24H录播站</a>
@@ -10,15 +13,27 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div>
-    <router-view/>
+    <router-view/> -->
   </div>
 </template>
+
+<script>
+import MainLayout from '@/layouts/MainLayout'
+
+export default {
+  name: 'App',
+  components: {
+    MainLayout
+  }
+}
+</script>
 
 <style>
 html,
 body {
   margin: 0;
   padding: 0;
+  background-color: #fae3e9;
 }
 a {
   text-decoration: none;
