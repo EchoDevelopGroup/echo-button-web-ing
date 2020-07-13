@@ -14,6 +14,12 @@ export default {
 <style>
 .button-group {
   position: relative;
+  box-sizing: border-box;
+  /* 左右减去6px 等于半个两按钮间间距 */
+  padding: 16px 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   background-color: #ffa6c6;
   border-radius: 12px;
   min-height: 122px;
