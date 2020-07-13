@@ -1,11 +1,16 @@
 <template>
   <div class="home">
+    <!-- 按钮 -->
     <button-group>
       <echo-button text="对呀对呀"></echo-button>
       <echo-button text="echo要不行了"></echo-button>
       <echo-button text="不要再打了"></echo-button>
       <echo-button text="哥哥，最喜欢你了"></echo-button>
     </button-group>
+
+    <!-- 右下角的播放控制器 -->
+    <player-control-panel></player-control-panel>
+
     <!-- <img alt="Vue logo" src="../assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
     <div v-for="list in voices" :key="list.button_classification">
@@ -28,19 +33,18 @@
 </template>
 
 <script>
-// @ is an alias to /src
-// import HelloWorld from '@/components/HelloWorld.vue'
 import ButtonGroup from '@/components/ButtonGroup'
 import EchoButton from '@/components/EchoButton'
-import * as api from '@/api'
+import PlayerControlPanel from '@/components/PlayerControlPanel'
 import { preFetchAudio } from '@/util/audio'
+import * as api from '@/api'
 
 export default {
   name: 'Home',
   components: {
-    // HelloWorld,
     ButtonGroup,
-    EchoButton
+    EchoButton,
+    PlayerControlPanel
   },
   data() {
     return {

@@ -139,7 +139,7 @@ yarn build
 
 ## 开发历程
 
-1. [ ] 播放的页面
+1. [x] 播放的页面 FinnTenzor
 2. [ ] 上传的页面
 3. [ ] 管理页面
 4. [ ] 序列播放
@@ -150,10 +150,10 @@ yarn build
 
 接任务请把自己的名字写在后面，方便他人确认哪些没人做。
 
-1. [ ] 导航栏
-2. [ ] 按钮组
+1. [x] 导航栏 FinnTenzor
+2. [x] 按钮组 FinnTenzor
 3. [x] 上传页面框 FinnTenzor
 4. [x] 自定义组件 FinnTenzor
-5. [ ] 上传审核按钮
-6. [ ] 导航组
-7. [ ] 页面布局
+5. [x] 上传审核按钮 FinnTenzor
+6. [x] 导航组 FinnTenzor
+7. [x] 页面布局 FinnTenzor
