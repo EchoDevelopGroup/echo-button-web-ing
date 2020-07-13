@@ -5,7 +5,7 @@
     <app-navigator></app-navigator>
 
     <!-- 页面主要内容 白底的部分 -->
-    <div class="page-container">
+    <div class="main-layout-page-container primary-shadow">
       <slot></slot>
     </div>
   </div>
@@ -23,13 +23,7 @@ export default {
 </script>
 
 <style>
-/* .main-layout {
-
-} */
-</style>
-
-<style scoped>
-.page-container {
+.main-layout-page-container {
   width: 1110px;
   min-height: 600px;
   margin: 15px auto 0;
