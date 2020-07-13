@@ -1,6 +1,7 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
+    <button-group></button-group>
+    <!-- <img alt="Vue logo" src="../assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
     <div v-for="list in voices" :key="list.button_classification">
       <p>{{ list.button_classification }}</p>
@@ -17,20 +18,22 @@
       <span>语音分类</span> <el-input v-model="form.voiceClassification" label="语音分类"></el-input>
       <span>上传用户</span> <el-input v-model="form.uploadUser" label="上传用户"></el-input>
       <el-button @click="upload()">上传</el-button>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+// import HelloWorld from '@/components/HelloWorld.vue'
+import ButtonGroup from '@/components/ButtonGroup'
 import * as api from '@/api'
 import { preFetchAudio } from '@/util/audio'
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    // HelloWorld,
+    ButtonGroup
   },
   data() {
     return {
