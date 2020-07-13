@@ -1,11 +1,11 @@
 <template>
   <!-- 桃按钮和上传页面采用的布局 -->
   <div class="button-layout">
-    <div class="navigator">
+    <div class="button-layout-navigator">
       <button-navigator :button-list="buttons"></button-navigator>
-      <div style="height: 20px; width: 30px"></div>
-      <button>上传</button>
-      <button>审核</button>
+      <div class="button-layout-navigator-placeholder"></div>
+      <upload-button class="button-layout-navigator-button">上传</upload-button>
+      <audit-button class="button-layout-navigator-button">审核</audit-button>
     </div>
     <div class="main-container">
       <slot>
@@ -17,11 +17,15 @@
 
 <script>
 import ButtonNavigator from '@/components/ButtonNavigator'
+import UploadButton from '@/components/UploadButton'
+import AuditButton from '@/components/AuditButton'
 
 export default {
   name: 'ButtonLayout',
   components: {
-    ButtonNavigator
+    ButtonNavigator,
+    UploadButton,
+    AuditButton
   },
   data() {
     return {
@@ -40,6 +44,16 @@ export default {
 <style>
 .button-layout {
   padding: 30px 40px;
+}
+.button-layout-navigator {
+  display: flex;
+  align-items: center;
+}
+.button-layout-navigator-placeholder {
+  flex: 1 0 auto;
+}
+.button-layout-navigator-button {
+  margin-left: 15px;
 }
 </style>
 
