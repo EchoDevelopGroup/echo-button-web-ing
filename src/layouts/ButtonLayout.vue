@@ -2,10 +2,17 @@
   <!-- 桃按钮和上传页面采用的布局 -->
   <div class="button-layout">
     <div class="button-layout-navigator">
+      <!-- 左侧的按钮组列表 导航组 -->
       <button-navigator :button-list="buttons"></button-navigator>
       <div class="button-layout-navigator-placeholder"></div>
-      <upload-button class="button-layout-navigator-button">上传</upload-button>
-      <audit-button class="button-layout-navigator-button">审核</audit-button>
+
+      <!-- 上传和审核按钮 -->
+      <router-link to="/upload" class="button-layout-navigator-button" v-slot="{ href, navigate }">
+        <round-button :href="href" which="upload" @click="navigate"></round-button>
+      </router-link>
+      <router-link to="/" class="button-layout-navigator-button" v-slot="{ href, navigate }">
+        <round-button :href="href" which="audit" @click="navigate"></round-button>
+      </router-link>
     </div>
     <div class="main-container">
       <slot>
@@ -17,15 +24,13 @@
 
 <script>
 import ButtonNavigator from '@/components/ButtonNavigator'
-import UploadButton from '@/components/UploadButton'
-import AuditButton from '@/components/AuditButton'
+import RoundButton from '@/components/RoundButton'
 
 export default {
   name: 'ButtonLayout',
   components: {
     ButtonNavigator,
-    UploadButton,
-    AuditButton
+    RoundButton
   },
   data() {
     return {
