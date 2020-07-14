@@ -43,7 +43,7 @@ export default {
 <style>
 .upload-list {
   /* -10是让这个框水平向外左右各拉伸10px 用于抵消最左边按钮左侧的10px边距和最右侧按钮右侧的10px边距 */
-  margin: 0 -10px;
+  margin: 20px -10px 0;
   padding: 0;
   display: flex;
   flex-direction: row;
