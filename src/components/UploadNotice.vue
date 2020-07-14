@@ -1,9 +1,11 @@
 <template>
-  <div class="upload-notice primary-shadow">
-    <slot>
-      <span class="upload-notice-text">{{ content }}</span>
-    </slot>
-  </div>
+  <li class="upload-notice primary-shadow">
+    <div class="upload-notice-text">
+      <slot>
+        <span>{{ content }}</span>
+      </slot>
+    </div>
+  </li>
 </template>
 
 <script>
@@ -34,6 +36,7 @@ export default {
   font-size: 19px;
   color: #fff;
   white-space: pre;
+  text-align: left;
 }
 .upload-notice-text {
   width: 100%;
@@ -41,6 +44,5 @@ export default {
   height: 5.2em;
   font-size: 16px;
   line-height: 1.3em;
-  text-align: left;
 }
 </style>

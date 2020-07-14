@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import Upload from '../views/Upload.vue'
 import ButtonLayout from '@/layouts/ButtonLayout'
 
 Vue.use(VueRouter)
@@ -19,6 +20,11 @@ const routes = [
         path: '/',
         name: 'button',
         component: Home
+      },
+      {
+        path: '/upload',
+        name: 'upload',
+        component: Upload
       }
     ]
   },

@@ -26,7 +26,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: '镇站之宝'
+      default: '类别'
     }
   },
   methods: {
