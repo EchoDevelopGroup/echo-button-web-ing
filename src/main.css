@@ -8,3 +8,16 @@
    */
   box-shadow: 0.5px 1.3px 7.2px #963a5b5c;
 }
+
+.area-fade-enter {
+  opacity: 0;
+}
+.area-fade-leave {
+  opacity: 1;
+}
+.area-fade-enter-active {
+  transition: all 2.2s cubic-bezier(1,0,1,0);
+}
+.area-fade-leave-active {
+  transition: all 2.2s cubic-bezier(1,0,1,0);
+}

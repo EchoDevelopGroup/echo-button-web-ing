@@ -15,16 +15,35 @@
       </router-link>
     </div>
     <div class="main-container">
-      <slot>
-        <router-view></router-view>
-      </slot>
+      <transition name="area-fade" @enter="startTransition">
+        <slot>
+          <router-view></router-view>
+        </slot>
+      </transition>
     </div>
+    <div class="transition-spade" v-if="render">
+      <div class="transition-space-anchor">
+        <img
+          src="@/assets/icon/spade-black.png"
+          alt="spade"
+          class="transition-spade-img"
+          :class="{ 'transition-spade-img-expand': expand, 'transition-spade-img-vanish': vanish }"
+        >
+      </div>
+    </div>
+
+    <!-- 为了预加载 -->
+    <img src="@/assets/icon/spade-black.png" alt="spade" class="pre-load">
   </div>
 </template>
 
 <script>
 import ButtonNavigator from '@/components/ButtonNavigator'
 import RoundButton from '@/components/RoundButton'
+
+function wait(time) {
+  return new Promise(resolve => setTimeout(resolve, time))
+}
 
 export default {
   name: 'ButtonLayout',
@@ -40,7 +59,42 @@ export default {
         '通用',
         'HSO',
         '怪叫'
-      ]
+      ],
+      transition: false,
+      render: false,
+      expand: false,
+      vanish: false
+    }
+  },
+  created() {
+    // setTimeout(() => {
+    //   this.startTransition()
+    // }, 1000)
+  },
+  methods: {
+    async startTransition(done) {
+      if (this.transition) {
+        return
+      }
+      this.transition = true
+
+      this.expand = false
+      this.vanish = false
+      await wait(16)
+      this.render = true
+      await wait(100)
+      this.expand = true
+      await wait(2000)
+      this.vanish = true
+      await wait(1000)
+      this.render = false
+      await wait(16)
+      this.expand = false
+      this.vanish = false
+      await wait(16)
+
+      this.transition = false
+      done()
     }
   }
 }
@@ -83,5 +137,52 @@ export default {
 }
 .main-container {
   margin-top: 25px;
+}
+.pre-load {
+  position: fixed;
+  width: 1px;
+  height: 1px;
+  opacity: 0.01;
+  bottom: -1px;
+  right: -1px;
+}
+
+.transition-spade {
+  position: fixed;
+  /* 选2000是因为很多UI库最顶层index是1000 */
+  z-index: 2000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.transition-space-anchor {
+  position: relative;
+  width: 200vw;
+  height: 230vw;
+}
+.transition-spade-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  display: block;
+  width: 0;
+  height: auto;
+  transition: width 2s cubic-bezier(.34,.42,.85,-0.42),
+    height 2s cubic-bezier(.34,.42,.85,-0.42),
+    opacity 1s linear;
+}
+.transition-spade-img-expand {
+  width: 200vw;
+}
+.transition-spade-img-vanish {
+  opacity: 0;
 }
 </style>
