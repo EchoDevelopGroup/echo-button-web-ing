@@ -1,5 +1,6 @@
 <template>
   <div class="button-group primary-shadow">
+    <!-- 按钮组底部的“爽了”的表情 -->
     <img src="@/assets/echo-feels-well.png" alt="echo" class="button-group-background">
     <slot></slot>
   </div>

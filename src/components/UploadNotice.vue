@@ -14,7 +14,7 @@ export default {
   props: {
     content: {
       type: String,
-      default: '上传说明\n  上传说明\n上传说明\n上传说明'
+      default: ''
     }
   }
 }

@@ -1,5 +1,6 @@
 <template>
   <div class="player-control-panel" @click="active = !active">
+    <!-- 5张卡盘 vertical控制垂直运动 card控制旋转运动 -->
     <div class="player-control-panel-normal-card-vertical player-control-panel-normal-card-vertical-1" :class="{ active }">
       <div class="player-control-panel-normal-card player-control-panel-normal-card-1" :class="{ active }">
         <img src="@/assets/icon/help-me-choose.png" alt="" class="player-control-panel-icon">

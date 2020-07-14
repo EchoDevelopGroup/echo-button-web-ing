@@ -7,8 +7,11 @@
       @dragover.prevent
       @dragleave.prevent
     >
+      <!-- 中间的加号 -->
       <img src="@/assets/upload-icon.png" alt="">
+      <!-- 显示的类别 -->
       <span class="upload-card-title">{{ title }}</span>
+      <!-- 隐藏掉的文件输入框 -->
       <input
         ref="upload"
         class="upload-card-file"
