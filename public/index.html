@@ -1,15 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Echo Voice Button，桃按钮，Echo button，基于hololivecn黑桃影的音源片段合集站，本站为echo粉丝作品，与官方无关！">
+    <meta name="keywords" content="黑桃影,桃按钮,Echo Button,エコーボタン,Spade Echo,hololive">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title><%= htmlWebpackPlugin.options.title %></title>
+    <title>桃按钮丨エコーボタン丨Echo Button</title>
   </head>
   <body>
     <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+      <style>
+        html,body {
+          width: 100%;
+          height: 100%;
+        }
+        .center {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
+        .tips {
+          display: block;
+        }
+      </style>
+      <div class="center">
+        <strong class="tips tips-zh">“没有JS看个啥！滚蛋mo！”快去安装一款现代浏览器，去体验Echo的快感吧！</strong>
+        <p class="tips tips-en">We're sorry but Echo Button doesn't work properly without JavaScript enabled. Please enable it to continue.</p>
+      </div>
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
