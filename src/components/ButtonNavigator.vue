@@ -21,12 +21,15 @@
         <div class="button-navigator-main" @click.stop="handleClick(index)">
           <router-link :to="'/' + sha1(buttonList[index])" class="button-navigator-link">
             <span class="button-navigator-text">{{ item }}</span>
-            <svg class="button-navigator-triangle left" width="20px" height="10px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <!-- <svg class="button-navigator-triangle left" width="20px" height="10px" version="1.1" xmlns="http://www.w3.org/2000/svg">
               <polygon points="0,10 20,10 10,0" />
             </svg>
             <svg class="button-navigator-triangle right" width="20px" height="10px" version="1.1" xmlns="http://www.w3.org/2000/svg">
               <polygon points="0,10 20,10 10,0" />
-            </svg>
+            </svg> -->
+            <div class="button-navigator-hat-rotate">
+              <img src="@/assets/hat.png" alt="hat" class="button-navigator-hat">
+            </div>
           </router-link>
         </div>
       </li>
@@ -135,6 +138,28 @@ export default {
 }
 .router-link-active .button-navigator-triangle {
   transform: scaleY(1);
+}
+.button-navigator-hat-rotate {
+  position: absolute;
+  top: 5px;
+  right: -45px;
+}
+.button-navigator-hat {
+  display: block;
+  width: 50px;
+  height: auto;
+  transform: scale(0);
+  transition: transform 0.4s;
+}
+.button-navigator-hat-rotate {
+  transform: rotate(180deg);
+  transition: transform 0.4s;
+}
+.router-link-active .button-navigator-hat-rotate {
+  transform: rotate(0deg);
+}
+.router-link-active .button-navigator-hat {
+  transform: scale(1) translateY(-45px);
 }
 .button-navigator-link {
   position: relative;
