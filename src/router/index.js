@@ -9,10 +9,6 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/config',
-    component: Config
-  },
-  {
     path: '/',
     component: ButtonLayout,
     children: [
@@ -22,9 +18,14 @@ const routes = [
         component: Upload
       },
       {
-        path: '/:id',
+        path: '/b/:id',
         name: 'button',
         component: Home
+      },
+      {
+        path: '/config',
+        name: 'config',
+        component: Config
       }
     ]
   },

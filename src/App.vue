@@ -17,6 +17,10 @@ export default {
   },
   created() {
     this.boot()
+    document.addEventListener('keydown', this.onKeyDown)
+  },
+  beforeDestroy() {
+    document.removeEventListener('keydown', this.onKeyDown)
   },
   methods: {
     ...mapActions({
@@ -33,6 +37,11 @@ export default {
         this.saveLocalOverview()
       } catch (err) {
         console.error('[App]fetch overview from server failed, no data display!')
+      }
+    },
+    onKeyDown(e) {
+      if (e.altKey === true && e.keyCode === 67) {
+        this.$router.push('/config').catch(() => {})
       }
     }
   }

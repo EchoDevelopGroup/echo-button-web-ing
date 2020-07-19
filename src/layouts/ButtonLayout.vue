@@ -15,7 +15,7 @@
       </router-link>
     </div>
     <div class="main-container">
-      <transition name="area-fade" @enter="scheduleTransition">
+      <transition name="area-fade" :duration="fastAnimation ? 0 : 2000" @enter="scheduleTransition">
         <slot>
           <router-view></router-view>
         </slot>
@@ -89,19 +89,26 @@ export default {
       setDisplayClassId: 'setDisplayClassId'
     }),
     handleClickNavigator(index) {
-      this.$nextTick(() => {
-        const targetId = sha1(this.buttons[index])
-        const currentId = this.$route.params.id
-        if (targetId !== currentId) {
-          this.$router.push('/' + targetId).catch(err => {
-            console.log('[Router] navigate failed', err)
-          })
-        }
-      })
+      if (index >= 0) {
+        this.$nextTick(() => {
+          const targetId = sha1(this.buttons[index])
+          const currentId = this.$route.params.id
+          if (targetId !== currentId) {
+            this.$router.push({
+              name: 'button',
+              params: {
+                id: targetId
+              }
+            }).catch(err => {
+              console.log('[Router] navigate failed', err)
+            })
+          }
+        })
+      }
     },
     scheduleTransition() {
       this.pending = () => this.transitionAnimate()
-      this.lastPromise.then(() => {
+      return this.lastPromise.then(() => {
         if (this.pending !== null) {
           this.lastPromise = this.pending()
         }

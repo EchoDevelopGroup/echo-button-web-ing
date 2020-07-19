@@ -19,7 +19,7 @@
         class="button-navigator-item"
       >
         <div class="button-navigator-main" @click.stop="handleClick(index)">
-          <router-link :to="'/' + sha1(buttonList[index])" class="button-navigator-link">
+          <router-link :to="{ name: 'button', params: { id: getClassId(index) } }" class="button-navigator-link">
             <span class="button-navigator-text">{{ item }}</span>
             <svg v-if="!isHat" class="button-navigator-triangle left" width="20px" height="10px" version="1.1" xmlns="http://www.w3.org/2000/svg">
               <polygon points="0,10 20,10 10,0" />
@@ -60,7 +60,10 @@ export default {
       // 抛出事件 参数是第几个按钮 -1表示点了最前面的黑桃
       this.$emit('click', index)
     },
-    sha1
+    getClassId(index) {
+      const name = this.buttonList[index]
+      return sha1(name)
+    }
   }
 }
 </script>
