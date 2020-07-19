@@ -12,14 +12,14 @@ const routes = [
     component: ButtonLayout,
     children: [
       {
-        path: '/:id',
-        name: 'button',
-        component: Home
-      },
-      {
         path: '/upload',
         name: 'upload',
         component: Upload
+      },
+      {
+        path: '/:id',
+        name: 'button',
+        component: Home
       }
     ]
   },

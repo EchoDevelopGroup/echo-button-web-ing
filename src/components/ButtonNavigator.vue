@@ -19,7 +19,7 @@
         class="button-navigator-item"
       >
         <div class="button-navigator-main" @click.stop="handleClick(index)">
-          <router-link :to="'/' + buttonList[index]" class="button-navigator-link">
+          <router-link :to="'/' + sha1(buttonList[index])" class="button-navigator-link">
             <span class="button-navigator-text">{{ item }}</span>
           </router-link>
         </div>
@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import { sha1 } from '@/util/sha1'
+
 export default {
   name: 'ButtonNavigator',
   props: {
@@ -42,7 +44,8 @@ export default {
     handleClick(index) {
       // 抛出事件 参数是第几个按钮 -1表示点了最前面的黑桃
       this.$emit('click', index)
-    }
+    },
+    sha1
   }
 }
 </script>

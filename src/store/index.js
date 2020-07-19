@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import * as api from '@/api'
+import { sha1 } from '@/util/sha1'
 
 Vue.use(Vuex)
 
@@ -83,7 +84,19 @@ export default new Vuex.Store({
     overview: state => state.overview,
 
     // 按钮分类列表 字符串数组
-    buttonClassificationList: state => state.overview.map(it => it.button_classification)
+    buttonClassificationList: state => state.overview.map(it => it.button_classification),
+
+    // 以按钮分类名hash为key的map
+    buttonListHashMap: state => {
+      const map = {}
+      state.overview.map(it => {
+        const key = sha1(it.button_classification)
+        map[key] = it
+      })
+      return map
+    },
+
+    getButtonListByHash: (state, getters) => hash => getters.buttonListHashMap[hash]
   },
   mutations: {
     setOverview(state, overview) {

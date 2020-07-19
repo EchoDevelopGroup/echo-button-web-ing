@@ -38,6 +38,7 @@ import EchoButton from '@/components/EchoButton'
 import PlayerControlPanel from '@/components/PlayerControlPanel'
 import { preFetchAudio } from '@/util/audio'
 import * as api from '@/api'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Home',
@@ -62,12 +63,20 @@ export default {
     }
   },
   created() {
-    this.getVoices()
+    // this.getVoices()
   },
   computed: {
+    ...mapGetters({
+      getButtonListByHash: 'getButtonListByHash'
+    }),
     // 当前类别的ID
     classId() {
       return this.$route.params.id
+    },
+
+    // 当前页面应该显示的所有按钮
+    buttonList() {
+      return this.getButtonListByHash(this.classId)
     }
   },
   methods: {
