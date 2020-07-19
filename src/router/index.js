@@ -30,6 +30,10 @@ const routes = [
         path: '/audit',
         name: 'audit',
         component: () => import(/* webpackChunkName: "audit" */ '../views/Audit.vue')
+      },
+      {
+        path: '*',
+        redirect: '/b/20f6e01d'
       }
     ]
   },
