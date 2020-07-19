@@ -15,7 +15,7 @@
       </router-link>
     </div>
     <div class="main-container">
-      <transition name="area-fade" @enter="startTransition">
+      <transition name="area-fade" @enter="scheduleTransition">
         <slot>
           <router-view></router-view>
         </slot>
@@ -54,19 +54,13 @@ export default {
   },
   data() {
     return {
-      // buttons: [
-      //   '镇站之宝',
-      //   '软桃',
-      //   '通用',
-      //   'HSO',
-      //   '怪叫'
-      // ],
       transition: false,
       render: false,
       expand: false,
       vanish: false,
 
-      lastPromise: Promise.resolve()
+      lastPromise: Promise.resolve(),
+      pending: null
     }
   },
   computed: {
@@ -81,21 +75,20 @@ export default {
   watch: {
     // 切换页面时重新触发切换页面的动画
     classId() {
-      this.startTransition()
+      this.scheduleTransition()
     }
-  },
-  created() {
-    // setTimeout(() => {
-    //   this.startTransition()
-    // }, 1000)
   },
   methods: {
     ...mapMutations({
       setDisplayClassId: 'setDisplayClassId'
     }),
-    startTransition() {
-      this.lastPromise = this.lastPromise.then(() => {
-        return this.transitionAnimate()
+    scheduleTransition() {
+      this.pending = () => this.transitionAnimate()
+      this.lastPromise.then(() => {
+        if (this.pending !== null) {
+          this.lastPromise = this.pending()
+        }
+        this.pending = null
       }).catch(err => {
         console.log('[Transition] transition failed: ', err)
 
