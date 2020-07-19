@@ -29,6 +29,7 @@ export default {
       saveLocalOverview: 'saveLocalOverview',
       fetchOverview: 'fetchOverview'
     }),
+    // 初始化启动应用 主要是加载缓存等
     async boot() {
       this.loadLocalOverview()
       this.loadLocalConfig()
@@ -39,9 +40,14 @@ export default {
         console.error('[App]fetch overview from server failed, no data display!')
       }
     },
+    // 当用户按下键盘上的按键的时候
     onKeyDown(e) {
-      if (e.altKey === true && e.keyCode === 67) {
-        this.$router.push('/config').catch(() => {})
+      if (e.altKey === true && e.shiftKey === true) {
+        if (e.keyCode === 67) {
+          this.$router.push('/config').catch(() => {})
+        } else if (e.keyCode === 65) {
+          this.$router.push('/audit').catch(() => {})
+        }
       }
     }
   }

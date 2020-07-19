@@ -18,25 +18,6 @@
 
     <!-- 右下角的播放控制器 -->
     <player-control-panel></player-control-panel>
-
-    <!-- <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-    <div v-for="list in voices" :key="list.button_classification">
-      <p>{{ list.button_classification }}</p>
-      <div v-for="voice in list.button_list" :key="voice.voice_id">
-        <el-button @click="playVoice(voice)">{{ voice.voice_name }}</el-button>
-      </div>
-    </div>
-
-    <div>
-      <p>这是一个超丑的上传界面</p>
-      <input type="file" name="" id="" @change="onChooseFile" ref="file">
-      <span>语音名称</span> <el-input v-model="form.voiceName" label="语音名称"></el-input>
-      <span>语音信息</span> <el-input v-model="form.voiceDetail" label="语音信息"></el-input>
-      <span>语音分类</span> <el-input v-model="form.voiceClassification" label="语音分类"></el-input>
-      <span>上传用户</span> <el-input v-model="form.uploadUser" label="上传用户"></el-input>
-      <el-button @click="upload()">上传</el-button>
-    </div> -->
   </div>
 </template>
 

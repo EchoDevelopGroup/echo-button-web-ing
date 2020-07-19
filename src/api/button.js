@@ -5,7 +5,9 @@ import { objectToFormData } from './form'
  * @typedef ButtonItem
  * @property {string} voice_id 语音ID
  * @property {string} voice_name 语音名称
+ * @property {string} voice_detail 语音描述
  * @property {string} voice_url 语音URL
+ * @property {number} new_upload 是否是新上传 0表示否 1表示是
  */
 
 /**
@@ -65,6 +67,37 @@ export function uploadButton(file, voiceName, voiceDetail, voiceClassification, 
       voice_classification: voiceClassification,
       upload_user: uploadUser
     })
+  })
+}
+
+/**
+ * 获取未审核的按钮列表
+ * @returns {Promise<ButtonOverview[]>}
+ */
+export function getUnverifiedList() {
+  return request({
+    url: 'button/unverified/list',
+    method: 'get'
+  })
+}
+
+/**
+ * 审核按钮
+ * @param {string} voiceId 语音ID
+ * @param {string} verify 0=通过 1=驳回
+ * @param {string} voiceName 语音名称
+ * @param {string} buttonClassification 按钮分类
+ */
+export function verifyButton(voiceId, verify, voiceName, buttonClassification) {
+  return request({
+    url: 'button/verify',
+    method: 'post',
+    data: {
+      voice_id: voiceId,
+      verify_result: verify,
+      voice_name: voiceName,
+      button_classification: buttonClassification
+    }
   })
 }
 

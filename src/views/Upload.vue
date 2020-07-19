@@ -24,7 +24,7 @@
       </el-table-column>
       <el-table-column prop="name" label="按钮描述">
         <template #default="{ row }">
-          <el-input v-model="row.detail" size="small" placeholder="鼠标移动至按钮上会显示这段话"></el-input>
+          <el-input v-model="row.detail" size="small" placeholder="请留空"></el-input>
         </template>
       </el-table-column>
       <el-table-column prop="classification" label="分类" width="160px"></el-table-column>

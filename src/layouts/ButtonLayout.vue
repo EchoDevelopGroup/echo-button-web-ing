@@ -10,7 +10,7 @@
       <router-link to="/upload" class="button-layout-navigator-button" v-slot="{ href, navigate }">
         <round-button :href="href" which="upload" @click="navigate"></round-button>
       </router-link>
-      <router-link to="/" class="button-layout-navigator-button" v-slot="{ href, navigate }">
+      <router-link to="/audit" class="button-layout-navigator-button" v-slot="{ href, navigate }">
         <round-button :href="href" which="audit" @click="navigate"></round-button>
       </router-link>
     </div>
