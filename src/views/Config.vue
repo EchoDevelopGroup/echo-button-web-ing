@@ -32,7 +32,6 @@ export default {
         const config = {
           ...val
         }
-        console.log('ddd', config)
         this.setConfig(config)
         this.saveLocalConfig()
       }

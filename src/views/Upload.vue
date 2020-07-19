@@ -7,9 +7,9 @@
 
     <ul class="upload-list">
       <upload-card
-        v-for="(item, index) in classes"
-        :key="index"
-        :title="item"
+        v-for="item in classList"
+        :key="item.hash"
+        :title="item.name"
         class="upload-list-item"
       />
     </ul>
@@ -19,6 +19,8 @@
 <script>
 import UploadNotice from '@/components/UploadNotice'
 import UploadCard from '@/components/UploadCard'
+import { mapGetters } from 'vuex'
+import { sha1 } from '../util/sha1'
 
 export default {
   name: 'Upload',
@@ -28,13 +30,19 @@ export default {
   },
   data() {
     return {
-      classes: [
-        '镇站之宝',
-        '软桃',
-        '通用',
-        'HSO',
-        '怪叫'
-      ]
+    }
+  },
+  computed: {
+    ...mapGetters({
+      buttonClassificationList: 'buttonClassificationList'
+    }),
+    classList() {
+      return this.buttonClassificationList.map(it => {
+        return {
+          name: it,
+          hash: sha1(it)
+        }
+      })
     }
   }
 }
