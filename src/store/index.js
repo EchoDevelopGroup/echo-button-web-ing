@@ -75,10 +75,15 @@ const localOverview = makeLocalStorage('echo_button_overview')
 
 export default new Vuex.Store({
   state: {
-  /**
-   * @type {api.ButtonOverview[]} 所有的桃语音
-   */
-    overview: []
+    /**
+     * @type {api.ButtonOverview[]} 所有的桃语音
+     */
+    overview: [],
+
+    /**
+     * @type {string} 当前正在显示的类别的hash id 比起URL存在一定延迟
+     */
+    displayClassId: ''
   },
   getters: {
     overview: state => state.overview,
@@ -101,6 +106,9 @@ export default new Vuex.Store({
   mutations: {
     setOverview(state, overview) {
       state.overview = overview
+    },
+    setDisplayClassId(state, classId) {
+      state.displayClassId = classId
     }
   },
   actions: {

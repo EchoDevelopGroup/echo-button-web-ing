@@ -40,7 +40,7 @@
 <script>
 import ButtonNavigator from '@/components/ButtonNavigator'
 import RoundButton from '@/components/RoundButton'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 function wait(time) {
   return new Promise(resolve => setTimeout(resolve, time))
@@ -64,7 +64,9 @@ export default {
       transition: false,
       render: false,
       expand: false,
-      vanish: false
+      vanish: false,
+
+      lastPromise: Promise.resolve()
     }
   },
   computed: {
@@ -88,7 +90,21 @@ export default {
     // }, 1000)
   },
   methods: {
-    async startTransition() {
+    ...mapMutations({
+      setDisplayClassId: 'setDisplayClassId'
+    }),
+    startTransition() {
+      this.lastPromise = this.lastPromise.then(() => {
+        return this.transitionAnimate()
+      }).catch(err => {
+        console.log('[Transition] transition failed: ', err)
+
+        this.expand = false
+        this.vanish = false
+        this.transition = false
+      })
+    },
+    async transitionAnimate() {
       if (this.transition) {
         return
       }
@@ -102,6 +118,7 @@ export default {
       this.expand = true
       await wait(2000)
       this.vanish = true
+      this.setDisplayClassId(this.classId)
       await wait(1000)
       this.render = false
       await wait(16)
