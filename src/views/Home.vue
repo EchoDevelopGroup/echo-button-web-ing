@@ -37,7 +37,7 @@ import ButtonGroup from '@/components/ButtonGroup'
 import EchoButton from '@/components/EchoButton'
 import PlayerControlPanel from '@/components/PlayerControlPanel'
 import { preFetchAudio } from '@/util/audio'
-import { api } from '@/api'
+import * as api from '@/api'
 
 export default {
   name: 'Home',

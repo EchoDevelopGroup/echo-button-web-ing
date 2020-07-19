@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { api } from '@/api'
+import * as api from '@/api'
 
 Vue.use(Vuex)
 
@@ -74,6 +74,9 @@ const localOverview = makeLocalStorage('echo_button_overview')
 
 export default new Vuex.Store({
   state: {
+  /**
+   * @type {api.ButtonOverview[]} 所有的桃语音
+   */
     overview: []
   },
   getters: {
