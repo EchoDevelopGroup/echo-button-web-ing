@@ -14,6 +14,8 @@
         <round-button :href="href" which="audit" @click="navigate"></round-button>
       </router-link>
     </div>
+
+    <!-- 主体内容 -->
     <div class="main-container">
       <transition name="area-fade" :duration="fastAnimation ? 0 : 2000" @enter="scheduleTransition">
         <slot>
@@ -21,6 +23,8 @@
         </slot>
       </transition>
     </div>
+
+    <!-- 黑桃放大动效 -->
     <div class="transition-spade" v-if="render">
       <div class="transition-space-anchor">
         <img

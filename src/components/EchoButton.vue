@@ -1,5 +1,5 @@
 <template>
-  <div class="echo-button primary-shadow" @click="handlePlay">
+  <div class="echo-button primary-shadow" @click="handlePlay" :title="title">
     <!-- 按钮文本 -->
     <span class="echo-button-text">{{ text }}</span>
 
@@ -21,6 +21,10 @@ export default {
     url: {
       type: String,
       required: true
+    },
+    title: {
+      type: String,
+      default: ''
     }
   },
   // data() {

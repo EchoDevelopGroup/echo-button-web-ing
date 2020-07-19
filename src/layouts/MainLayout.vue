@@ -26,7 +26,7 @@ export default {
 .main-layout-page-container {
   width: 1110px;
   min-height: 600px;
-  margin: 15px auto 0;
+  margin: 15px auto;
   border-radius: 12px;
   background-color: #fff;
 }

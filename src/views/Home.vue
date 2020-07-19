@@ -10,6 +10,7 @@
         v-for="item in displayButtonGroupList[i]"
         :key="item.voice_id"
         :text="item.voice_name"
+        :title="item.voice_detail"
         :url="item.voice_url"
         :is-new="item.new_upload"
       ></echo-button>
