@@ -21,13 +21,13 @@
         <div class="button-navigator-main" @click.stop="handleClick(index)">
           <router-link :to="'/' + sha1(buttonList[index])" class="button-navigator-link">
             <span class="button-navigator-text">{{ item }}</span>
-            <!-- <svg class="button-navigator-triangle left" width="20px" height="10px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <svg v-if="!isHat" class="button-navigator-triangle left" width="20px" height="10px" version="1.1" xmlns="http://www.w3.org/2000/svg">
               <polygon points="0,10 20,10 10,0" />
             </svg>
-            <svg class="button-navigator-triangle right" width="20px" height="10px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <svg v-if="!isHat" class="button-navigator-triangle right" width="20px" height="10px" version="1.1" xmlns="http://www.w3.org/2000/svg">
               <polygon points="0,10 20,10 10,0" />
-            </svg> -->
-            <div class="button-navigator-hat-rotate">
+            </svg>
+            <div v-if="isHat" class="button-navigator-hat-rotate">
               <img src="@/assets/hat.png" alt="hat" class="button-navigator-hat">
             </div>
           </router-link>
@@ -39,6 +39,7 @@
 
 <script>
 import { sha1 } from '@/util/sha1'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'ButtonNavigator',
@@ -47,6 +48,11 @@ export default {
       type: Array,
       default: () => []
     }
+  },
+  computed: {
+    ...mapGetters({
+      isHat: 'isHat'
+    })
   },
   methods: {
     // 用户点击某一个按钮

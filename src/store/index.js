@@ -94,12 +94,18 @@ export default new Vuex.Store({
        * 快速动画 为true的时候跳过切换页面的动画
        */
       fastAnimation: false
-    }
+    },
+
+    /**
+     * 是否显示帽子动画
+     */
+    isHat: Math.random() > 0.95
   },
   getters: {
     overview: state => state.overview,
     displayClassId: state => state.displayClassId,
     config: state => state.config,
+    isHat: state => state.isHat,
 
     // 按钮分类列表 字符串数组
     buttonClassificationList: state => state.overview.map(it => it.button_classification),
@@ -205,6 +211,15 @@ export default new Vuex.Store({
      */
     async fetchOverview({ commit }) {
       const overview = await api.getOverview()
+      overview.sort((a, b) => {
+        if (a.button_classification < b.button_classification) {
+          return 1
+        } else if (a.button_classification > b.button_classification) {
+          return -1
+        } else {
+          return 0
+        }
+      })
       commit('setOverview', overview)
       return overview
     }
