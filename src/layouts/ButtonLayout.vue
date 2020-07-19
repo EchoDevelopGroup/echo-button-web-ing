@@ -70,7 +70,17 @@ export default {
   computed: {
     ...mapGetters({
       buttons: 'buttonClassificationList'
-    })
+    }),
+    // 当前类别的ID
+    classId() {
+      return this.$route.params.id
+    }
+  },
+  watch: {
+    // 切换页面时重新触发切换页面的动画
+    classId() {
+      this.startTransition()
+    }
   },
   created() {
     // setTimeout(() => {

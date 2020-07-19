@@ -5,7 +5,9 @@
       <!-- 最开头的黑桃 -->
       <li class="button-navigator-item" @click="handleClick(0)">
         <div class="button-navigator-main" @click.stop="handleClick(-1)">
-          <img src="@/assets/icon/spade-white.png" alt="spade" class="button-navigator-spade-img">
+          <router-link to="/">
+            <img src="@/assets/icon/spade-white.png" alt="spade" class="button-navigator-spade-img">
+          </router-link>
         </div>
       </li>
 
@@ -17,7 +19,9 @@
         class="button-navigator-item"
       >
         <div class="button-navigator-main" @click.stop="handleClick(index)">
-          <span class="button-navigator-text">{{ item }}</span>
+          <router-link :to="'/' + buttonList[index]" class="button-navigator-link">
+            <span class="button-navigator-text">{{ item }}</span>
+          </router-link>
         </div>
       </li>
     </ul>
@@ -90,6 +94,12 @@ export default {
 .button-navigator-spade-img {
   width: auto;
   height: 23px;
+}
+.button-navigator-link {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .button-navigator-text {
   color: #fff;

@@ -64,6 +64,12 @@ export default {
   created() {
     this.getVoices()
   },
+  computed: {
+    // 当前类别的ID
+    classId() {
+      return this.$route.params.id
+    }
+  },
   methods: {
     async getVoices() {
       this.voices = await api.getOverview()
