@@ -5,10 +5,10 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import ElementUI from 'element-ui'
-import * as api from '@/api'
-import { startMock } from './mock'
+import { api } from '@/api'
+// import { startMock } from './mock'
 
-startMock()
+// startMock()
 
 Vue.use(ElementUI)
 

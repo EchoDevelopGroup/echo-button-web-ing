@@ -8,11 +8,31 @@
 
 <script>
 import MainLayout from '@/layouts/MainLayout'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'App',
   components: {
     MainLayout
+  },
+  created() {
+    this.boot()
+  },
+  methods: {
+    ...mapActions({
+      loadLocalOverview: 'loadLocalOverview',
+      saveLocalOverview: 'saveLocalOverview',
+      fetchOverview: 'fetchOverview'
+    }),
+    async boot() {
+      this.loadLocalOverview()
+      try {
+        await this.fetchOverview()
+        this.saveLocalOverview()
+      } catch (err) {
+        console.error('[App]fetch overview from server failed, no data display!')
+      }
+    }
   }
 }
 </script>

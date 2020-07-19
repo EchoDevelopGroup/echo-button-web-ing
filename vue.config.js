@@ -7,7 +7,7 @@ module.exports = {
         ws: false,
         changeOrigin: true
       },
-      '/echo-static': {
+      '/static': {
         target: 'https://sepeach.com/',
         ws: false,
         changeOrigin: true

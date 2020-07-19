@@ -40,6 +40,7 @@
 <script>
 import ButtonNavigator from '@/components/ButtonNavigator'
 import RoundButton from '@/components/RoundButton'
+import { mapGetters } from 'vuex'
 
 function wait(time) {
   return new Promise(resolve => setTimeout(resolve, time))
@@ -53,18 +54,23 @@ export default {
   },
   data() {
     return {
-      buttons: [
-        '镇站之宝',
-        '软桃',
-        '通用',
-        'HSO',
-        '怪叫'
-      ],
+      // buttons: [
+      //   '镇站之宝',
+      //   '软桃',
+      //   '通用',
+      //   'HSO',
+      //   '怪叫'
+      // ],
       transition: false,
       render: false,
       expand: false,
       vanish: false
     }
+  },
+  computed: {
+    ...mapGetters({
+      buttons: 'buttonClassificationList'
+    })
   },
   created() {
     // setTimeout(() => {
