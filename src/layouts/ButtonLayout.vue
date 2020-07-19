@@ -55,9 +55,6 @@ export default {
   },
   data() {
     return {
-      // 快速动画 为true的时候跳过切换页面的动画
-      fastAnimation: true,
-
       transition: false,
       render: false,
       expand: false,
@@ -69,8 +66,13 @@ export default {
   },
   computed: {
     ...mapGetters({
+      config: 'config',
       buttons: 'buttonClassificationList'
     }),
+    // 是否启用快速动画
+    fastAnimation() {
+      return this.config.fastAnimation
+    },
     // 当前类别的ID
     classId() {
       return this.$route.params.id

@@ -20,12 +20,14 @@ export default {
   },
   methods: {
     ...mapActions({
+      loadLocalConfig: 'loadLocalConfig',
       loadLocalOverview: 'loadLocalOverview',
       saveLocalOverview: 'saveLocalOverview',
       fetchOverview: 'fetchOverview'
     }),
     async boot() {
       this.loadLocalOverview()
+      this.loadLocalConfig()
       try {
         await this.fetchOverview()
         this.saveLocalOverview()

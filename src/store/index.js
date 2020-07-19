@@ -72,6 +72,7 @@ function makeLocalStorage(key) {
 }
 
 const localOverview = makeLocalStorage('echo_button_overview')
+const localConfig = makeLocalStorage('echo_button_config')
 
 export default new Vuex.Store({
   state: {
@@ -83,11 +84,22 @@ export default new Vuex.Store({
     /**
      * @type {string} 当前正在显示的类别的hash id 比起URL存在一定延迟
      */
-    displayClassId: ''
+    displayClassId: '',
+
+    /**
+     * 应用配置 持久化
+     */
+    config: {
+      /**
+       * 快速动画 为true的时候跳过切换页面的动画
+       */
+      fastAnimation: false
+    }
   },
   getters: {
     overview: state => state.overview,
     displayClassId: state => state.displayClassId,
+    config: state => state.config,
 
     // 按钮分类列表 字符串数组
     buttonClassificationList: state => state.overview.map(it => it.button_classification),
@@ -122,8 +134,13 @@ export default new Vuex.Store({
         console.log('[Core] setOverview, overview invalid, no buttons')
       }
     },
+
     setDisplayClassId(state, classId) {
       state.displayClassId = classId
+    },
+
+    setConfig(state, config) {
+      state.config = config
     }
   },
   actions: {
@@ -138,7 +155,7 @@ export default new Vuex.Store({
         if (version === 1) {
           commit('setOverview', data)
         } else {
-          console.log('[Overview] local storage version unknown, ignore')
+          console.log('[LocalStorage] local storage version unknown, ignore')
         }
       }
     },
@@ -150,6 +167,34 @@ export default new Vuex.Store({
     saveLocalOverview({ state }) {
       const data = state.overview
       localOverview.set({
+        version: 1,
+        data
+      })
+    },
+
+    /**
+     * 从本地缓存读取Config
+     * @param {*} context 上下文
+     */
+    loadLocalConfig({ commit }) {
+      const local = localConfig.get()
+      if (local !== null) {
+        const { version, data } = local
+        if (version === 1) {
+          commit('setConfig', data)
+        } else {
+          console.log('[LocalStorage] local storage version unknown, ignore')
+        }
+      }
+    },
+
+    /**
+     * 把当前Vuex中的Config存入本地缓存
+     * @param {*} context 上下文
+     */
+    saveLocalConfig({ state }) {
+      const data = state.config
+      localConfig.set({
         version: 1,
         data
       })

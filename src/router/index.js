@@ -2,11 +2,16 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Upload from '../views/Upload.vue'
+import Config from '../views/Config.vue'
 import ButtonLayout from '@/layouts/ButtonLayout'
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/config',
+    component: Config
+  },
   {
     path: '/',
     component: ButtonLayout,
