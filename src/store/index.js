@@ -133,12 +133,6 @@ export default new Vuex.Store({
   mutations: {
     setOverview(state, overview) {
       state.overview = overview
-      const firstArea = state.overview[0]
-      if (firstArea) {
-        state.displayClassId = sha1(firstArea.button_classification)
-      } else {
-        console.log('[Core] setOverview, overview invalid, no buttons')
-      }
     },
 
     setDisplayClassId(state, classId) {

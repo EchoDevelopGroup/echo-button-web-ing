@@ -1,5 +1,5 @@
 <template>
-  <div class="echo-button primary-shadow" @click="handlePlay" :title="title">
+  <div class="echo-button primary-shadow" @click="handlePlay" :title="title" :class="{ 'echo-button-active': isPlaying }">
     <!-- 按钮文本 -->
     <span class="echo-button-text">{{ text }}</span>
 
@@ -11,12 +11,18 @@
 </template>
 
 <script>
+import * as api from '@/api'
+
 export default {
   name: 'EchoButton',
   props: {
     text: {
       type: String,
       default: ''
+    },
+    voiceId: {
+      type: String,
+      required: true
     },
     url: {
       type: String,
@@ -27,15 +33,31 @@ export default {
       default: ''
     }
   },
-  // data() {
-  //   return {
-  //     audio: new Audio(this.url)
-  //   }
-  // },
+  data() {
+    return {
+      // 播放计数器 开始播放+1 结束播放-1
+      // 等于0就是没有在播放
+      plays: 0
+    }
+  },
+  computed: {
+    // 是否处于正在播放的状态
+    isPlaying() {
+      return this.plays !== 0
+    }
+  },
   methods: {
+    // 播放音频
     handlePlay() {
       const audio = new Audio(this.url)
       audio.play()
+      this.plays++
+      audio.onended = () => {
+        this.plays--
+      }
+      api.playButton(this.voiceId).catch(err => {
+        console.log('[EchoButton]play button failed', err)
+      })
     }
   }
 }
@@ -58,7 +80,8 @@ export default {
   color: #fff;
   font-weight: bold;
 }
-.echo-button:hover {
+.echo-button:hover,
+.echo-button-active {
   background-color: #d62986;
 }
 .echo-button-active-box {
@@ -78,7 +101,7 @@ export default {
   transform: rotateX(90deg);
   transition: transform 0.4s;
 }
-.echo-button:active .echo-button-active-img {
+.echo-button-active .echo-button-active-img {
   transform: rotateX(0deg);
 }
 </style>

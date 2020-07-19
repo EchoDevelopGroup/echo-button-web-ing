@@ -11,6 +11,7 @@
         :key="item.voice_id"
         :text="item.voice_name"
         :title="item.voice_detail"
+        :voice-id="item.voice_id"
         :url="item.voice_url"
         :is-new="item.new_upload"
       ></echo-button>
@@ -26,7 +27,7 @@ import ButtonGroup from '@/components/ButtonGroup'
 import EchoButton from '@/components/EchoButton'
 import PlayerControlPanel from '@/components/PlayerControlPanel'
 import { preFetchAudio } from '@/util/audio'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   name: 'Home',
@@ -51,9 +52,6 @@ export default {
         uploadUser: ''
       }
     }
-  },
-  created() {
-    // this.getVoices()
   },
   computed: {
     ...mapGetters({
@@ -91,13 +89,18 @@ export default {
   },
   watch: {
     // 当用户切页面的时候(刚开始动画) 预加载目标页面的前10个按钮
-    classId() {
-      this.preFetchCurrent().then(err => {
-        console.error('[EchoButton] cant not pre load audio', err)
-      })
+    classId(val) {
+      if (val !== '') {
+        this.preFetchCurrent().then(err => {
+          console.error('[EchoButton] cant not pre load audio', err)
+        })
+      }
     }
   },
   methods: {
+    ...mapMutations({
+      setDisplayClassId: 'setDisplayClassId'
+    }),
     /**
      * 预加载当前马上要打开(但还没打开)的页面的前10个按钮
      * 即加载buttonToLoad中的全部按钮
