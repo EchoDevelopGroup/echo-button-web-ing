@@ -96,7 +96,7 @@ export default new Vuex.Store({
       return map
     },
 
-    getButtonListByHash: (state, getters) => hash => getters.buttonListHashMap[hash]
+    getButtonListByHash: (state, getters) => hash => getters.buttonListHashMap[hash].button_list
   },
   mutations: {
     setOverview(state, overview) {

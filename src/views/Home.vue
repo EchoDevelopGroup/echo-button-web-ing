@@ -1,11 +1,18 @@
 <template>
   <div class="home">
-    <!-- 按钮 -->
-    <button-group>
-      <echo-button text="对呀对呀"></echo-button>
-      <echo-button text="echo要不行了"></echo-button>
-      <echo-button text="不要再打了"></echo-button>
-      <echo-button text="哥哥，最喜欢你了"></echo-button>
+    <!-- 按钮组 -->
+    <button-group
+      v-for="(item, i) in buttonGroupList"
+      :key="i"
+    >
+      <!-- 按钮 -->
+      <echo-button
+        v-for="item in buttonGroupList[i]"
+        :key="item.voice_id"
+        :text="item.voice_name"
+        :url="item.voice_url"
+        :is-new="item.new_upload"
+      ></echo-button>
     </button-group>
 
     <!-- 右下角的播放控制器 -->
@@ -53,6 +60,8 @@ export default {
        * @type {api.ButtonOverview[]} 所有的桃语音
        */
       voices: [],
+      // 每组多少个按钮
+      buttonPerGroup: 10,
       form: {
         file: null,
         voiceName: '',
@@ -77,6 +86,13 @@ export default {
     // 当前页面应该显示的所有按钮
     buttonList() {
       return this.getButtonListByHash(this.classId)
+    },
+
+    // 按钮组列表 一组10个按钮
+    buttonGroupList() {
+      const b = this.buttonPerGroup
+      const n = Math.ceil(this.buttonList.length / b)
+      return Array(n).fill(null).map((_, i) => this.buttonList.slice(i * b, (i + 1) * b))
     }
   },
   methods: {

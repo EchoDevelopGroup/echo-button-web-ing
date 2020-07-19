@@ -16,8 +16,8 @@
   opacity: 1;
 }
 .area-fade-enter-active {
-  transition: all 2.2s cubic-bezier(1,0,1,0);
+  transition: all 2s steps(1, end); /* cubic-bezier(1,0,1,0); */
 }
 .area-fade-leave-active {
-  transition: all 2.2s cubic-bezier(1,0,1,0);
+  transition: all 2s steps(1, end); /* cubic-bezier(1,0,1,0); */
 }

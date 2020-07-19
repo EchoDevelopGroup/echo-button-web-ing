@@ -88,7 +88,7 @@ export default {
     // }, 1000)
   },
   methods: {
-    async startTransition(done) {
+    async startTransition() {
       if (this.transition) {
         return
       }
@@ -110,7 +110,6 @@ export default {
       await wait(16)
 
       this.transition = false
-      done()
     }
   }
 }
