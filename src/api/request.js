@@ -2,8 +2,7 @@ import axios from 'axios'
 
 // 创建axios实例
 const _axios = axios.create({
-  baseURL: '/echo-api', // api的base_url
-  timeout: 5000 // 请求超时时间
+  baseURL: '/echo-api' // api的base_url
 })
 
 // response拦截器==>处理后端返回相应
