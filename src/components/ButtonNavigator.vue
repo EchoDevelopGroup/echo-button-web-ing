@@ -21,6 +21,12 @@
         <div class="button-navigator-main" @click.stop="handleClick(index)">
           <router-link :to="'/' + sha1(buttonList[index])" class="button-navigator-link">
             <span class="button-navigator-text">{{ item }}</span>
+            <svg class="button-navigator-triangle left" width="20px" height="10px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+              <polygon points="0,10 20,10 10,0" />
+            </svg>
+            <svg class="button-navigator-triangle right" width="20px" height="10px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+              <polygon points="0,10 20,10 10,0" />
+            </svg>
           </router-link>
         </div>
       </li>
@@ -52,7 +58,7 @@ export default {
 
 <style>
 .button-navigator {
-  overflow: hidden;
+  /* overflow: hidden; */
   height: 38px;
   /* 最外层剪裁 用于去掉第一个按钮的左侧和最后一个按钮的右侧 */
   border-top-left-radius: 23px; /* 22.8975 */
@@ -81,6 +87,12 @@ export default {
   align-items: center;
   border-bottom-right-radius: 28px; /* 27.735 */
   border-top-right-radius: 4px; /* 4.1925 */
+  cursor: pointer;
+}
+.button-navigator-item:nth-child(1) {
+  overflow: hidden;
+  border-top-left-radius: 23px; /* 22.8975 */
+  border-bottom-left-radius: 8px; /* 7.4125 */
 }
 .button-navigator-item:nth-child(2n+1) {
   background-color: #fd6e9a;
@@ -88,17 +100,44 @@ export default {
 .button-navigator-item:nth-child(2n+1) > .button-navigator-main {
   background-color: #e64e8c;
 }
+.button-navigator-item:nth-child(2n+1) .button-navigator-triangle {
+  fill: #e64e8c;
+}
 .button-navigator-item:nth-child(2n) {
   background-color: #e64e8c;
 }
 .button-navigator-item:nth-child(2n) > .button-navigator-main {
   background-color: #fd6e9a;
 }
+.button-navigator-item:nth-child(2n) .button-navigator-triangle {
+  fill: #fd6e9a;
+}
+.button-navigator-item:last-child {
+  background-color: transparent;
+  cursor: inherit;
+}
 .button-navigator-spade-img {
   width: auto;
   height: 23px;
 }
+.button-navigator-triangle {
+  position: absolute;
+  top: -9px;
+  transform: scaleY(0);
+  transform-origin: 50% 100%;
+  transition: transform 0.4s cubic-bezier(.56,2,.6,.64);
+}
+.button-navigator-triangle.left {
+  left: -10px;
+}
+.button-navigator-triangle.right {
+  right: -10px;
+}
+.router-link-active .button-navigator-triangle {
+  transform: scaleY(1);
+}
 .button-navigator-link {
+  position: relative;
   height: 100%;
   display: flex;
   justify-content: center;
