@@ -1,5 +1,5 @@
 <template>
-  <div class="echo-button primary-shadow">
+  <div class="echo-button primary-shadow" @click="handlePlay">
     <!-- 按钮文本 -->
     <span class="echo-button-text">{{ text }}</span>
 
@@ -17,6 +17,21 @@ export default {
     text: {
       type: String,
       default: ''
+    },
+    url: {
+      type: String,
+      required: true
+    }
+  },
+  // data() {
+  //   return {
+  //     audio: new Audio(this.url)
+  //   }
+  // },
+  methods: {
+    handlePlay() {
+      const audio = new Audio(this.url)
+      audio.play()
     }
   }
 }
@@ -33,6 +48,7 @@ export default {
   border-radius: 15px;
   background-color: #fd507e;
   transition: background-color 0.4s;
+  cursor: pointer;
 }
 .echo-button-text {
   color: #fff;
