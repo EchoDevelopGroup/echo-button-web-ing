@@ -76,12 +76,10 @@ export default {
   },
   computed: {
     ...mapGetters({
-      getButtonListByHash: 'getButtonListByHash'
+      getButtonListByHash: 'getButtonListByHash',
+      // 当前类别的ID (正在显示的 跟URL相比有延迟)
+      classId: 'displayClassId'
     }),
-    // 当前类别的ID
-    classId() {
-      return this.$route.params.id
-    },
 
     // 当前页面应该显示的所有按钮
     buttonList() {

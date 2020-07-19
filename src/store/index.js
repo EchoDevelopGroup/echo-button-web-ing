@@ -87,6 +87,7 @@ export default new Vuex.Store({
   },
   getters: {
     overview: state => state.overview,
+    displayClassId: state => state.displayClassId,
 
     // 按钮分类列表 字符串数组
     buttonClassificationList: state => state.overview.map(it => it.button_classification),
@@ -101,11 +102,25 @@ export default new Vuex.Store({
       return map
     },
 
-    getButtonListByHash: (state, getters) => hash => getters.buttonListHashMap[hash].button_list
+    // 按hash查询按钮列表
+    getButtonListByHash: (state, getters) => hash => {
+      const area = getters.buttonListHashMap[hash]
+      if (area) {
+        return area.button_list
+      }
+      console.log('[Core] getButtonListByHash, hash not found:' + hash)
+      return []
+    }
   },
   mutations: {
     setOverview(state, overview) {
       state.overview = overview
+      const firstArea = state.overview[0]
+      if (firstArea) {
+        state.displayClassId = sha1(firstArea.button_classification)
+      } else {
+        console.log('[Core] setOverview, overview invalid, no buttons')
+      }
     },
     setDisplayClassId(state, classId) {
       state.displayClassId = classId
@@ -127,6 +142,7 @@ export default new Vuex.Store({
         }
       }
     },
+
     /**
      * 把当前Vuex中的Overview存入本地缓存
      * @param {*} context 上下文
