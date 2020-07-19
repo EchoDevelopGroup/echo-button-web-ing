@@ -3,7 +3,7 @@
   <div class="button-layout">
     <div class="button-layout-navigator">
       <!-- 左侧的按钮组列表 导航组 -->
-      <button-navigator :button-list="buttons"></button-navigator>
+      <button-navigator :button-list="buttons" @click="handleClickNavigator"></button-navigator>
       <div class="button-layout-navigator-placeholder"></div>
 
       <!-- 上传和审核按钮 -->
@@ -41,6 +41,7 @@
 import ButtonNavigator from '@/components/ButtonNavigator'
 import RoundButton from '@/components/RoundButton'
 import { mapGetters, mapMutations } from 'vuex'
+import { sha1 } from '../util/sha1'
 
 function wait(time) {
   return new Promise(resolve => setTimeout(resolve, time))
@@ -54,6 +55,9 @@ export default {
   },
   data() {
     return {
+      // 快速动画 为true的时候跳过切换页面的动画
+      fastAnimation: true,
+
       transition: false,
       render: false,
       expand: false,
@@ -82,6 +86,17 @@ export default {
     ...mapMutations({
       setDisplayClassId: 'setDisplayClassId'
     }),
+    handleClickNavigator(index) {
+      this.$nextTick(() => {
+        const targetId = sha1(this.buttons[index])
+        const currentId = this.$route.params.id
+        if (targetId !== currentId) {
+          this.$router.push('/' + targetId).catch(err => {
+            console.log('[Router] navigate failed', err)
+          })
+        }
+      })
+    },
     scheduleTransition() {
       this.pending = () => this.transitionAnimate()
       this.lastPromise.then(() => {
@@ -101,25 +116,29 @@ export default {
       if (this.transition) {
         return
       }
-      this.transition = true
+      if (this.fastAnimation) {
+        this.setDisplayClassId(this.classId)
+      } else {
+        this.transition = true
 
-      this.expand = false
-      this.vanish = false
-      await wait(16)
-      this.render = true
-      await wait(100)
-      this.expand = true
-      await wait(2000)
-      this.vanish = true
-      this.setDisplayClassId(this.classId)
-      await wait(1000)
-      this.render = false
-      await wait(16)
-      this.expand = false
-      this.vanish = false
-      await wait(16)
+        this.expand = false
+        this.vanish = false
+        await wait(16)
+        this.render = true
+        await wait(100)
+        this.expand = true
+        await wait(2000)
+        this.vanish = true
+        this.setDisplayClassId(this.classId)
+        await wait(1000)
+        this.render = false
+        await wait(16)
+        this.expand = false
+        this.vanish = false
+        await wait(16)
 
-      this.transition = false
+        this.transition = false
+      }
     }
   }
 }
