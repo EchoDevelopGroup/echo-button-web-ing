@@ -22,7 +22,7 @@ import { objectToFormData } from './form'
  */
 export function getOverview() {
   return request({
-    url: 'button/overview',
+    url: '/echo/button/overview',
     method: 'get'
   })
 }
@@ -39,7 +39,7 @@ export function getOverview() {
  */
 export function playButton(voiceId) {
   return request({
-    url: 'button/play',
+    url: '/echo/button/play',
     method: 'post',
     data: {
       voice_id: voiceId
@@ -58,7 +58,7 @@ export function playButton(voiceId) {
  */
 export function uploadButton(file, voiceName, voiceDetail, voiceClassification, uploadUser) {
   return request({
-    url: 'button/upload',
+    url: '/echo/button/upload',
     method: 'post',
     data: objectToFormData({
       file,
@@ -76,7 +76,7 @@ export function uploadButton(file, voiceName, voiceDetail, voiceClassification, 
  */
 export function getUnverifiedList() {
   return request({
-    url: 'button/unverified/list',
+    url: '/echo/button/unverified/list',
     method: 'get'
   })
 }
@@ -90,7 +90,7 @@ export function getUnverifiedList() {
  */
 export function verifyButton(voiceId, verify, voiceName, buttonClassification) {
   return request({
-    url: 'button/verify',
+    url: '/echo/button/verify',
     method: 'post',
     data: {
       voice_id: voiceId,
@@ -108,7 +108,7 @@ export function verifyButton(voiceId, verify, voiceName, buttonClassification) {
  */
 export function removeButton(voiceId) {
   return request({
-    url: 'button/delete',
+    url: '/echo/button/delete',
     method: 'post',
     data: {
       voice_id: voiceId
@@ -123,7 +123,7 @@ export function removeButton(voiceId) {
  */
 export function login(userName, userPassword) {
   return request({
-    url: 'user/authority',
+    url: '/user/authority',
     method: 'post',
     data: {
       user_name: userName,

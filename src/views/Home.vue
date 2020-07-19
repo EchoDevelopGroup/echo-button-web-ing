@@ -26,7 +26,6 @@ import ButtonGroup from '@/components/ButtonGroup'
 import EchoButton from '@/components/EchoButton'
 import PlayerControlPanel from '@/components/PlayerControlPanel'
 import { preFetchAudio } from '@/util/audio'
-import * as api from '@/api'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -93,7 +92,9 @@ export default {
   watch: {
     // 当用户切页面的时候(刚开始动画) 预加载目标页面的前10个按钮
     classId() {
-      this.preFetchCurrent()
+      this.preFetchCurrent().then(err => {
+        console.error('[EchoButton] cant not pre load audio', err)
+      })
     }
   },
   methods: {
@@ -105,45 +106,6 @@ export default {
       return Promise.all(
         this.buttonToLoad.map(it => preFetchAudio(it.voice_url))
       )
-    },
-    // async getVoices() {
-    //   this.voices = await api.getOverview()
-    //   await this.preFetch()
-    //   console.log('load ok')
-    // },
-    /**
-     * 预先加载所有的音频
-     */
-    preFetch() {
-      return Promise.all(
-        this.voices.map(it => {
-          return Promise.all(
-            it.button_list.map(async (v) => {
-              await preFetchAudio(v.voice_url)
-              console.log(v.voice_name, 'load over')
-            })
-          )
-        })
-      )
-    },
-    playVoice(voice) {
-      const url = voice.voice_url
-      const audio = new Audio(url)
-      audio.play()
-    },
-    onChooseFile(e) {
-      const dom = this.$refs.file
-      this.form.file = dom.files[0]
-      console.log(this.form.file)
-    },
-    async upload() {
-      try {
-        await api.uploadButton(this.form.file, this.form.voiceName, this.form.voiceDetail, this.form.voiceClassification, this.form.uploadUser)
-        this.$message.success('上传成功')
-      } catch (err) {
-        this.$message.error(err.message)
-        console.error(err)
-      }
     }
   }
 }
