@@ -3,6 +3,8 @@
     <!-- 按钮文本 -->
     <span class="echo-button-text">{{ text }}</span>
 
+    <!-- <img v-if="isNew === 1" src="@/assets/icon/new.png" alt="new" class="echo-button-new"> -->
+
     <!-- 按钮右边的小黑桃 -->
     <div class="echo-button-active-box">
       <img src="@/assets/icon/spade-white-rotate.png" alt="" class="echo-button-active-img">
@@ -31,6 +33,10 @@ export default {
     title: {
       type: String,
       default: ''
+    },
+    isNew: {
+      type: Number,
+      default: 0
     }
   },
   data() {
@@ -65,6 +71,7 @@ export default {
 
 <style>
 .echo-button {
+  position: relative;
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -75,6 +82,14 @@ export default {
   background-color: #fd507e;
   transition: background-color 0.4s;
   cursor: pointer;
+}
+.echo-button-new {
+  position: absolute;
+  display: block;
+  top: -20px;
+  left: -15px;
+  width: 40px;
+  height: auto;
 }
 .echo-button-text {
   color: #fff;
