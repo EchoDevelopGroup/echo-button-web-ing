@@ -135,7 +135,7 @@ export default {
 .button-navigator-triangle {
   position: absolute;
   top: -9px;
-  transform: scaleY(0);
+  transform: scaleY(0.001);
   transform-origin: 50% 100%;
   transition: transform 0.4s cubic-bezier(.5,2.4,.6,.6);
 }

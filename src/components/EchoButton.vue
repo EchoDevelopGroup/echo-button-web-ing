@@ -113,7 +113,7 @@ export default {
 
 /* 动画效果 */
 .echo-button-active-img {
-  transform: rotateX(90deg);
+  transform: rotateX(90.1deg);
   transition: transform 0.4s;
 }
 .echo-button-active .echo-button-active-img {
