@@ -14,10 +14,10 @@
       <div class="app-navigator-placeholder"></div>
 
       <!-- 音量和语言按钮 -->
-      <div class="app-navigator-button">
+      <div class="app-navigator-button" @click="handleEditVolume">
         <img src="@/assets/icon/volume.png" alt="音量" class="app-navigator-button-img">
       </div>
-      <div class="app-navigator-button">
+      <div class="app-navigator-button" @click="handleEditLanguage">
         <img src="@/assets/icon/language.png" alt="语言" class="app-navigator-button-img">
       </div>
     </div>
@@ -26,7 +26,29 @@
 
 <script>
 export default {
-  name: 'AppNavigator'
+  name: 'AppNavigator',
+  methods: {
+    handleEditVolume() {
+      this.$alert('请自己调整系统音量', 'echo说', {
+        confirmButtonText: '对呀对呀',
+        cancelButtonText: '下次一定',
+        showCancelButton: true,
+        callback: action => {
+          // nothing
+        }
+      })
+    },
+    handleEditLanguage() {
+      this.$alert('等echo不涩的时候多语言功能就有了', 'echo说', {
+        confirmButtonText: '对呀对呀',
+        cancelButtonText: '下次一定',
+        showCancelButton: true,
+        callback: action => {
+          // nothing
+        }
+      })
+    }
+  }
 }
 </script>
 

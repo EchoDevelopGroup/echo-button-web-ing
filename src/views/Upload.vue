@@ -3,6 +3,7 @@
     <!-- 页面顶部的公告 -->
     <upload-notice>
       <p>欢迎使用桃按钮(｀・ω・´)</p>
+      <p>如需新分类，请联系我们，联系方式见网页下方的关于。</p>
     </upload-notice>
 
     <ul class="upload-list">

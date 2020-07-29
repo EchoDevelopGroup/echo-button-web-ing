@@ -137,18 +137,23 @@ export default {
       // 如果点击的不是那个黑桃
       if (index >= 0) {
         this.$nextTick(() => {
-          const targetId = sha1(this.buttons[index])
-          const currentId = this.$route.params.id
-          // 看一下点击的目标是不是当前页面
-          if (targetId !== currentId) {
-            this.$router.push({
-              name: 'button',
-              params: {
-                id: targetId
-              }
-            }).catch(err => {
-              console.log('[Router] navigate failed', err)
-            })
+          if (index === this.buttons.length) {
+            // 友情链接
+            this.$router.push('/links').catch(() => {})
+          } else {
+            const targetId = sha1(this.buttons[index])
+            const currentId = this.$route.params.id
+            // 看一下点击的目标是不是当前页面
+            if (targetId !== currentId) {
+              this.$router.push({
+                name: 'button',
+                params: {
+                  id: targetId
+                }
+              }).catch(err => {
+                console.log('[Router] navigate failed', err)
+              })
+            }
           }
         })
       }

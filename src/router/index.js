@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Config from '../views/Config.vue'
+import Links from '../views/Links.vue'
 import ButtonLayout from '@/layouts/ButtonLayout'
 
 Vue.use(VueRouter)
@@ -20,6 +21,11 @@ const routes = [
         path: '/config',
         name: 'config',
         component: Config
+      },
+      {
+        path: '/links',
+        name: 'links',
+        component: Links
       },
       {
         path: '/upload',

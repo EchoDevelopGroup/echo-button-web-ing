@@ -33,6 +33,26 @@
           </router-link>
         </div>
       </li>
+
+      <!-- 友情链接 -->
+      <li
+        class="button-navigator-item"
+      >
+        <div class="button-navigator-main" @click.stop="handleClick(buttonList.length)">
+          <router-link :to="{ name: 'links' }" class="button-navigator-link">
+            <span class="button-navigator-text">友情链接</span>
+            <svg v-if="!isHat" class="button-navigator-triangle left" width="20px" height="10px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+              <polygon points="0,10 20,10 10,0" />
+            </svg>
+            <svg v-if="!isHat" class="button-navigator-triangle right" width="20px" height="10px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+              <polygon points="0,10 20,10 10,0" />
+            </svg>
+            <div v-if="isHat" class="button-navigator-hat-rotate">
+              <img src="@/assets/hat.png" alt="hat" class="button-navigator-hat">
+            </div>
+          </router-link>
+        </div>
+      </li>
     </ul>
   </div>
 </template>
