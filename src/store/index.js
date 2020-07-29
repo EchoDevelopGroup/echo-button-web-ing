@@ -6,6 +6,8 @@ import { sha1 } from '@/util/sha1'
 Vue.use(Vuex)
 
 const canLocalStorage = typeof window.localStorage !== 'undefined'
+const targetOverviewVersion = 1
+const targetConfigVersion = 2
 
 /**
  * 指定键名 返回该键名对应的LocalStorage封装
@@ -93,7 +95,15 @@ export default new Vuex.Store({
       /**
        * 快速动画 为true的时候跳过切换页面的动画
        */
-      fastAnimation: false
+      fastAnimation: false,
+      /**
+       * 动画速度等级 1最慢 5最快
+       */
+      animationLevel: 1,
+      /**
+       * 自动随着切页的次数增加逐渐加快动画速度
+       */
+      autoIncrease: true
     },
 
     /**
@@ -152,7 +162,7 @@ export default new Vuex.Store({
       const local = localOverview.get()
       if (local !== null) {
         const { version, data } = local
-        if (version === 1) {
+        if (version === targetOverviewVersion) {
           commit('setOverview', data)
         } else {
           console.log('[LocalStorage] local storage version unknown, ignore')
@@ -167,7 +177,7 @@ export default new Vuex.Store({
     saveLocalOverview({ state }) {
       const data = state.overview
       localOverview.set({
-        version: 1,
+        version: targetOverviewVersion,
         data
       })
     },
@@ -180,7 +190,7 @@ export default new Vuex.Store({
       const local = localConfig.get()
       if (local !== null) {
         const { version, data } = local
-        if (version === 1) {
+        if (version === targetConfigVersion) {
           commit('setConfig', data)
         } else {
           console.log('[LocalStorage] local storage version unknown, ignore')
@@ -195,7 +205,7 @@ export default new Vuex.Store({
     saveLocalConfig({ state }) {
       const data = state.config
       localConfig.set({
-        version: 1,
+        version: targetConfigVersion,
         data
       })
     },

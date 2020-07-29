@@ -17,7 +17,10 @@
 
     <!-- 主体内容 -->
     <div class="main-container">
-      <transition name="area-fade" :duration="fastAnimation ? 0 : 2000" @enter="scheduleTransition">
+      <transition :css="false"
+        @leave="scheduleTransition"
+        mode="out-in"
+      >
         <slot>
           <router-view></router-view>
         </slot>
@@ -28,10 +31,11 @@
     <div class="transition-spade" v-if="render">
       <div class="transition-space-anchor">
         <img
+          ref="spadeImg"
           src="@/assets/icon/spade-black.png"
           alt="spade"
           class="transition-spade-img"
-          :class="{ 'transition-spade-img-expand': expand, 'transition-spade-img-vanish': vanish }"
+          :class="{ 'transition-spade-img-expand': expand, 'transition-spade-img-vanish': vanish, ['transition-spade-img-' + animationLevel]: true }"
         >
       </div>
     </div>
@@ -44,11 +48,21 @@
 <script>
 import ButtonNavigator from '@/components/ButtonNavigator'
 import RoundButton from '@/components/RoundButton'
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 import { sha1 } from '../util/sha1'
+import { AnimationController } from '../util/animation'
 
 function wait(time) {
   return new Promise(resolve => setTimeout(resolve, time))
+}
+
+// 不同动画速度下延迟的时长
+const timeMap = {
+  1: [2000, 1000],
+  2: [1600, 800],
+  3: [1200, 600],
+  4: [800, 400],
+  5: [400, 200]
 }
 
 export default {
@@ -64,8 +78,8 @@ export default {
       expand: false,
       vanish: false,
 
-      lastPromise: Promise.resolve(),
-      pending: null
+      // 动画控制器
+      controller: null
     }
   },
   computed: {
@@ -77,26 +91,55 @@ export default {
     fastAnimation() {
       return this.config.fastAnimation
     },
+    // 是否启用自动加速
+    autoIncrease() {
+      return this.config.autoIncrease
+    },
+    // 动画速度等级 1最慢 5最快
+    animationLevel() {
+      return this.config.animationLevel
+    },
     // 当前类别的ID
     classId() {
       return this.$route.params.id
+    },
+    // 当前动画速度等级下 进入和退出动画各多久
+    timeSerial() {
+      return timeMap[this.animationLevel] || timeMap[3] // 配置错误就按中等速度来
     }
   },
   watch: {
     // 切换页面时重新触发切换页面的动画
     classId() {
-      this.scheduleTransition()
+      // this.scheduleTransition(null, () => {})
+      this.controller.sendRequest(() => {
+        this.setDisplayClassId(this.classId)
+      })
+    },
+    // 配置改变的时候同时更新controller
+    fastAnimation() {
+      this.controller.fastAnimation = this.fastAnimation
     }
+  },
+  created() {
+    this.controller = new AnimationController(this.enterAnimate, this.leaveAnimate)
   },
   methods: {
     ...mapMutations({
-      setDisplayClassId: 'setDisplayClassId'
+      setDisplayClassId: 'setDisplayClassId',
+      setConfig: 'setConfig'
     }),
+    ...mapActions({
+      saveLocalConfig: 'saveLocalConfig'
+    }),
+    // 用户点击导航组中的某一个
     handleClickNavigator(index) {
+      // 如果点击的不是那个黑桃
       if (index >= 0) {
         this.$nextTick(() => {
           const targetId = sha1(this.buttons[index])
           const currentId = this.$route.params.id
+          // 看一下点击的目标是不是当前页面
           if (targetId !== currentId) {
             this.$router.push({
               name: 'button',
@@ -110,47 +153,51 @@ export default {
         })
       }
     },
-    scheduleTransition() {
-      this.pending = () => this.transitionAnimate()
-      return this.lastPromise.then(() => {
-        if (this.pending !== null) {
-          this.lastPromise = this.pending()
-        }
-        this.pending = null
-      }).catch(err => {
-        console.log('[Transition] transition failed: ', err)
-
-        this.expand = false
-        this.vanish = false
-        this.transition = false
+    // 启动切页动画
+    scheduleTransition(el, done) {
+      this.controller.sendRequest(done)
+    },
+    // 等下一个可用渲染帧
+    next() {
+      return new Promise(resolve => {
+        // 先等vue的下一个VDOM tick
+        this.$nextTick(() => {
+          // 然后等待浏览器的下一个渲染帧
+          requestAnimationFrame(() => {
+            // 我也挺迷的 似乎一帧不太够用 所以等两帧
+            requestAnimationFrame(() => {
+              resolve()
+            })
+          })
+        })
       })
     },
-    async transitionAnimate() {
-      if (this.transition) {
-        return
-      }
-      if (this.fastAnimation) {
-        this.setDisplayClassId(this.classId)
-      } else {
-        this.transition = true
-
-        this.expand = false
-        this.vanish = false
-        await wait(16)
-        this.render = true
-        await wait(100)
-        this.expand = true
-        await wait(2000)
-        this.vanish = true
-        this.setDisplayClassId(this.classId)
-        await wait(1000)
-        this.render = false
-        await wait(16)
-        this.expand = false
-        this.vanish = false
-        await wait(16)
-
-        this.transition = false
+    // 进入动画
+    async enterAnimate() {
+      this.expand = false
+      this.vanish = false
+      await this.next()
+      this.render = true
+      await this.next()
+      this.expand = true
+      await wait(this.timeSerial[0])
+    },
+    // 离开动画
+    async leaveAnimate() {
+      this.vanish = true
+      await wait(this.timeSerial[1])
+      this.render = false
+      await this.next()
+      this.expand = false
+      this.vanish = false
+      await this.next()
+      if (this.autoIncrease) {
+        this.setConfig({
+          ...this.config,
+          // 最快只加速到第四档
+          animationLevel: Math.min(4, this.config.animationLevel + 1)
+        })
+        this.saveLocalConfig()
       }
     }
   }
@@ -230,16 +277,34 @@ export default {
   bottom: 0;
   margin: auto;
   display: block;
-  width: 0;
+  width: 200vw;
   height: auto;
-  transition: width 2s cubic-bezier(.34,.42,.85,-0.42),
-    height 2s cubic-bezier(.34,.42,.85,-0.42),
-    opacity 1s linear;
+  transform: scale(0);
 }
 .transition-spade-img-expand {
-  width: 200vw;
+  transform: scale(1);
 }
 .transition-spade-img-vanish {
   opacity: 0;
+}
+.transition-spade-img-1 {
+  transition: transform 2s cubic-bezier(.34,.42,.85,-0.42),
+    opacity 1s linear;
+}
+.transition-spade-img-2 {
+  transition: transform 1.6s cubic-bezier(.34,.42,.85,-0.42),
+    opacity 0.8s linear;
+}
+.transition-spade-img-3 {
+  transition: transform 1.2s cubic-bezier(.19,.35,1,-0.34),
+    opacity 0.6s linear;
+}
+.transition-spade-img-4 {
+  transition: transform 0.8s cubic-bezier(.34,.55,1,-0.34),
+    opacity 0.4s linear;
+}
+.transition-spade-img-5 {
+  transition: transform 0.4s linear,
+    opacity 0.2s linear;
 }
 </style>
