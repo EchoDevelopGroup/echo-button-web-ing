@@ -12,3 +12,16 @@ export function preFetchAudio(url) {
     audio.play()
   })
 }
+
+// debug测浏览器API用
+// export function makeAudio(url) {
+//   const audio = new Audio(url)
+//   for (const k in audio) {
+//     if (k.startsWith('on')) {
+//       audio[k] = () => {
+//         console.log(k + ' called')
+//       }
+//     }
+//   }
+//   return audio
+// }

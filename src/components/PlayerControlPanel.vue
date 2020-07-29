@@ -39,7 +39,8 @@
 
 <script>
 // 事件车，试图绑定播放事件
-import bus from '@/api/bus.js'
+// import bus from '@/api/bus.js'
+import { mapMutations, mapGetters } from 'vuex'
 export default {
   name: 'PlayerControlPanel',
   data: function () {
@@ -87,21 +88,31 @@ export default {
     }
   },
 
-  mounted() {
-    bus.$on('a', aa => {
-      this.plays = aa
-    })
+  computed: {
+    ...mapGetters({
+      playerConfig: 'playerConfig'
+    }),
+    // 播放控制器
+    controller() {
+      return this.playerConfig.controller
+    }
+  },
+
+  created() {
+    // 从vuex读入配置
+    this.num = this.playerConfig.playPattern
+    this.overlap = this.playerConfig.overlap ? 6 : 5
   },
 
   methods: {
-    // 随机数封装
-    random(max, min) {
-      return parseInt(Math.random() * (max - min + 1) + min)
-    },
+    ...mapMutations({
+      setPlayerPlayPattern: 'setPlayerPlayPattern',
+      setPlayerOverlap: 'setPlayerOverlap'
+    }),
 
     //  帮我选择
     helpopt() {
-      this.random(9, 0)
+      this.controller.playRandom()
     },
 
     // 三个循环的模式
@@ -120,6 +131,9 @@ export default {
         // 禁止循环
         this.num = 0
       }
+
+      // 循环模式存入vuex
+      this.setPlayerPlayPattern(this.num)
     },
 
     // 重叠播放
@@ -133,6 +147,9 @@ export default {
       } else {
         this.overlap = 5
       }
+
+      // 重叠模式存入vuex
+      this.setPlayerOverlap(this.overlap === 6)
     },
 
     // 暂停or继续
@@ -143,10 +160,14 @@ export default {
       this.stop++
       if (this.stop === 4) {
         // 暂停播放
-        this.$emit('stop', true)
+        // this.$emit('stop', true)
+        this.controller.pauseAll()
+
         this.stop = 4
       } else {
         // 继续播放
+
+        this.controller.playAll()
         this.stop = 3
       }
     },
@@ -191,6 +212,7 @@ export default {
   box-shadow: 0.7px 1.3px 10px #62303d80;
   transition: transform 0.4s;
   transform-origin: 25% 100%;
+  cursor: pointer;
 }
 .player-control-panel-normal-card-vertical {
   transition: transform 0.4s;

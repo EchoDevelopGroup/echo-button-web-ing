@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import * as api from '@/api'
 import { sha1 } from '@/util/sha1'
+import { Player } from '@/util/player'
 
 Vue.use(Vuex)
 
@@ -107,6 +108,26 @@ export default new Vuex.Store({
     },
 
     /**
+     * 播放器配置
+     */
+    player: {
+      /**
+       * 循环模式 0=洗脑循环 1=随机循环 2=禁止循环
+       */
+      playPattern: 2,
+
+      /**
+       * 是否允许循环播放
+       */
+      overlap: false,
+
+      /**
+       * 播放控制器
+       */
+      controller: new Player()
+    },
+
+    /**
      * 是否显示帽子动画
      */
     isHat: Math.random() > 0.95
@@ -138,7 +159,24 @@ export default new Vuex.Store({
       }
       console.log('[Core] getButtonListByHash, hash not found:' + hash)
       return []
-    }
+    },
+
+    // 所有的按钮
+    buttonList: state => {
+      const list = []
+      for (const classification of state.overview) {
+        for (const voice of classification.button_list) {
+          list.push(voice)
+        }
+      }
+      return list
+    },
+
+    // 给定ID 返回按钮详情
+    getButtonById: (_, getters) => id => getters.buttonList.find(it => it.voice_id === id),
+
+    // 播放器配置
+    playerConfig: state => state.player
   },
   mutations: {
     setOverview(state, overview) {
@@ -151,6 +189,14 @@ export default new Vuex.Store({
 
     setConfig(state, config) {
       state.config = config
+    },
+
+    setPlayerPlayPattern(state, pattern) {
+      state.player.playPattern = pattern
+    },
+
+    setPlayerOverlap(state, overlap) {
+      state.player.overlap = overlap
     }
   },
   actions: {
@@ -227,7 +273,6 @@ export default new Vuex.Store({
       commit('setOverview', overview)
       return overview
     }
-
   },
   modules: {
   }

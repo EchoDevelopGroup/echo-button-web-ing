@@ -14,7 +14,9 @@
 
 <script>
 import * as api from '@/api'
-import bus from '@/api/bus.js'
+// import bus from '@/api/bus.js'
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'EchoButton',
   props: {
@@ -48,35 +50,54 @@ export default {
     }
   },
   computed: {
+    ...mapGetters({
+      playerConfig: 'playerConfig'
+    }),
+    // 播放控制器
+    controller() {
+      return this.playerConfig.controller
+    },
+    // 当前所有的播放任务
+    taskList() {
+      return this.controller.taskList
+    },
     // 是否处于正在播放的状态
     isPlaying() {
-      return this.plays !== 0
+      return !!this.taskList.find(it => it.voiceId === this.voiceId)
     }
+    // // 是否允许循环播放
+    // canOverlap() {
+    //   return this.playerConfig.overlap
+    // }
   },
   methods: {
     // 播放音频
     handlePlay() {
-      const audio = new Audio(this.url)
-      this.songMenu.push(audio)
-      audio.play()
-      this.plays++
-      console.log(this.plays)
-      bus.$emit('a', 2)
-      audio.onended = () => {
-        this.plays--
-      }
+      // if (this.canOverlap) {
+
+      // }
+      // const audio = new Audio(this.url)
+      // this.songMenu.push(audio)
+      // audio.play()
+      // this.plays++
+      // console.log(this.plays)
+      // bus.$emit('a', 2)
+      // audio.onended = () => {
+      //   this.plays--
+      // }
+      this.controller.playVoice(this.voiceId)
       api.playButton(this.voiceId).catch(err => {
         console.log('[EchoButton]play button failed', err)
       })
-    },
-    // 暂停音频
-    stop() {
-      console.log('成功1')
-      for (let i = 0; i++; i <= this.songMenu.lenght) {
-        this.songMenu[i].pause()
-        console.log('成功')
-      }
     }
+    // // 暂停音频
+    // stop() {
+    //   console.log('成功1')
+    //   for (let i = 0; i++; i <= this.songMenu.lenght) {
+    //     this.songMenu[i].pause()
+    //     console.log('成功')
+    //   }
+    // }
   }
 }
 </script>
