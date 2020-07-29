@@ -100,13 +100,13 @@ export default new Vuex.Store({
      * 是否显示帽子动画
      */
     isHat: Math.random() > 0.95
+
   },
   getters: {
     overview: state => state.overview,
     displayClassId: state => state.displayClassId,
     config: state => state.config,
     isHat: state => state.isHat,
-
     // 按钮分类列表 字符串数组
     buttonClassificationList: state => state.overview.map(it => it.button_classification),
 
@@ -217,6 +217,7 @@ export default new Vuex.Store({
       commit('setOverview', overview)
       return overview
     }
+
   },
   modules: {
   }

@@ -12,7 +12,7 @@
 
 <script>
 import * as api from '@/api'
-
+import bus from '@/api/bus.js'
 export default {
   name: 'EchoButton',
   props: {
@@ -37,7 +37,8 @@ export default {
     return {
       // 播放计数器 开始播放+1 结束播放-1
       // 等于0就是没有在播放
-      plays: 0
+      plays: 0,
+      songMenu: []
     }
   },
   computed: {
@@ -50,14 +51,25 @@ export default {
     // 播放音频
     handlePlay() {
       const audio = new Audio(this.url)
+      this.songMenu.push(audio)
       audio.play()
       this.plays++
+      console.log(this.plays)
+      bus.$emit('a', 2)
       audio.onended = () => {
         this.plays--
       }
       api.playButton(this.voiceId).catch(err => {
         console.log('[EchoButton]play button failed', err)
       })
+    },
+    // 暂停音频
+    stop() {
+      console.log('成功1')
+      for (let i = 0; i++; i <= this.songMenu.lenght) {
+        this.songMenu[i].pause()
+        console.log('成功')
+      }
     }
   }
 }
