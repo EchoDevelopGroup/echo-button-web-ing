@@ -39,7 +39,7 @@ const routes = [
       },
       {
         path: '*',
-        redirect: '/b/20f6e01d'
+        redirect: '/b/08a8dd83'
       }
     ]
   },

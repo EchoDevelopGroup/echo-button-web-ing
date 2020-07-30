@@ -108,11 +108,13 @@ export default {
 }
 .button-navigator-item {
   height: 100%;
+  padding-right: 1px;
   cursor: pointer;
 }
 .button-navigator-main {
   display: flex;
   height: 100%;
+  margin-left: -1px;
   padding: 0 28px 0 23px;
   flex-direction: row;
   justify-content: center;
@@ -147,6 +149,7 @@ export default {
 .button-navigator-item:last-child {
   background-color: transparent;
   cursor: inherit;
+  padding-right: 0;
 }
 .button-navigator-spade-img {
   width: auto;
