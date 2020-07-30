@@ -16,6 +16,7 @@ export default {
 .button-group {
   position: relative;
   box-sizing: border-box;
+  margin-top: 25px;
   /* 左右减去6px 等于半个两按钮间间距 */
   padding: 16px 10px;
   display: flex;
