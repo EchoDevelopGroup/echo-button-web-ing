@@ -65,7 +65,7 @@ export default {
           txt: '随机循环'
         },
         {
-          src: require('@/assets/icon/spade-black.png'),
+          src: require('@/assets/icon/no-loop.png'),
           txt: '禁止循环'
         },
         {
