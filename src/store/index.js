@@ -64,6 +64,20 @@ export default new Vuex.Store({
     },
 
     /**
+     * 页面视图 是否是手机之类的参数
+     */
+    view: {
+      /**
+       * 宽度
+       */
+      width: 0,
+      /**
+       * 高度
+       */
+      height: 0
+    },
+
+    /**
      * 是否显示帽子动画
      */
     isHat: Math.random() > 0.95
@@ -133,6 +147,11 @@ export default new Vuex.Store({
 
     setPlayerOverlap(state, overlap) {
       state.player.overlap = overlap
+    },
+
+    setViewSize(state, { width, height }) {
+      state.view.width = width
+      state.view.height = height
     }
   },
   actions: {

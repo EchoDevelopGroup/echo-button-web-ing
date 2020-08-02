@@ -10,17 +10,25 @@
 import MainLayout from '@/layouts/MainLayout'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import { sha1 } from './util/sha1'
+import { onWindowResize } from './util/window-listener'
 
 export default {
   name: 'App',
   components: {
     MainLayout
   },
+  data() {
+    return {
+      wListener: null
+    }
+  },
   created() {
     this.boot()
     document.addEventListener('keydown', this.onKeyDown)
+    this.wListener = onWindowResize(this.onWindowResize)
   },
   beforeDestroy() {
+    this.wListener.destroy()
     document.removeEventListener('keydown', this.onKeyDown)
   },
   computed: {
@@ -34,7 +42,8 @@ export default {
   },
   methods: {
     ...mapMutations({
-      setDisplayClassId: 'setDisplayClassId'
+      setDisplayClassId: 'setDisplayClassId',
+      setViewSize: 'setViewSize'
     }),
     ...mapActions({
       loadLocalConfig: 'loadLocalConfig',
@@ -77,6 +86,14 @@ export default {
           this.$router.push('/audit').catch(() => {})
         }
       }
+    },
+    // 窗口大小变化时
+    onWindowResize(width, height) {
+      // 把宽高存入vuex
+      this.setViewSize({
+        width,
+        height
+      })
     }
   }
 }
