@@ -55,13 +55,15 @@ export default {
 <style>
 .app-navigator {
   width: 100%;
+  min-width: 1000px;
   height: 50px;
   background-color: #fe76a1;
   background: linear-gradient(to right, #fec2d2, #fe6990);
 }
 /* 加一层框 宽度等于 1110 + 70 * 2 看起来好看一点 */
 .app-navigator-frame {
-  width: 1250px;
+  box-sizing: border-box;
+  width: 1300px;
   height: 100%;
   margin: 0 auto;
   padding: 0 25px;
@@ -103,5 +105,11 @@ export default {
   display: block;
   width: auto;
   height: 33px;
+}
+
+@media screen and (max-width: 1300px) {
+  .app-navigator-frame {
+    width: 100%;
+  }
 }
 </style>
