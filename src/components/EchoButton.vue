@@ -85,7 +85,7 @@ export default {
   justify-content: center;
   align-items: center;
   height: 30px;
-  margin: 0 6px;
+  margin: 6px;
   padding: 0 8px 0 22px;
   border-radius: 15px;
   background-color: #fd507e;
