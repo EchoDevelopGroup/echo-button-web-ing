@@ -131,3 +131,19 @@ export function login(userName, userPassword) {
     }
   })
 }
+
+/**
+ * 上传消息到树洞
+ * @param {string} record 消息内容
+ * @param {number} status 0=树洞 1=公开处刑
+ */
+export function uploadCave(record, status) {
+  return request({
+    url: '/anonymous/upload',
+    method: 'post',
+    data: {
+      record,
+      record_status: status
+    }
+  })
+}

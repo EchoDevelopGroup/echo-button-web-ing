@@ -38,6 +38,11 @@ const routes = [
         component: () => import(/* webpackChunkName: "audit" */ '../views/Audit.vue')
       },
       {
+        path: '/cave',
+        name: 'cave',
+        component: () => import(/* webpackChunkName: "cave" */ '../views/Cave.vue')
+      },
+      {
         path: '*',
         redirect: '/b/08a8dd83'
       }

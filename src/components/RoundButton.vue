@@ -23,7 +23,7 @@ export default {
     which: {
       type: String,
       validator(v) {
-        return v === 'upload' || v === 'audit'
+        return v === 'upload' || v === 'audit' || v === 'cave'
       },
       default: 'upload'
     },
