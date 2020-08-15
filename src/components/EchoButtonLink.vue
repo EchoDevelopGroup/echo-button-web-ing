@@ -2,10 +2,8 @@
   <a
     class="echo-button primary-shadow echo-button-link"
     target="_blank"
-    @click="handlePlay"
     :title="title"
     :href="url"
-    :class="{ 'echo-button-active': isPlaying }"
   >
     <!-- 按钮文本 -->
     <span class="echo-button-text">{{ text }}</span>

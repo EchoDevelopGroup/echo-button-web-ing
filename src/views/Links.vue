@@ -11,9 +11,6 @@
         :title="item.title"
       ></echo-button-link>
     </button-group>
-
-    <!-- 右下角的播放控制器 -->
-    <player-control-panel></player-control-panel>
   </div>
 </template>
 
