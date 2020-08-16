@@ -1,6 +1,6 @@
 <template>
   <!-- 按钮导航栏 用于切换页面 -->
-  <div class="button-navigator primary-shadow">
+  <div class="button-navigator primary-shadow slant-border">
     <ul class="button-navigator-list">
       <!-- 最开头的黑桃 -->
       <li class="button-navigator-item" @click="handleClick(0)">
@@ -19,8 +19,8 @@
         class="button-navigator-item"
       >
         <div class="button-navigator-main" @click.stop="handleClick(index)">
-          <router-link :to="{ name: 'button', params: { id: getClassId(index) } }" class="button-navigator-link">
-            <span class="button-navigator-text">{{ item }}</span>
+          <router-link :to="{ name: 'button', params: { id: item.hash } }" class="button-navigator-link">
+            <span class="button-navigator-text">{{ item.name }}</span>
             <svg v-if="!isHat" class="button-navigator-triangle left" width="20px" height="10px" version="1.1" xmlns="http://www.w3.org/2000/svg">
               <polygon points="0,10 20,10 10,0" />
             </svg>
@@ -58,7 +58,6 @@
 </template>
 
 <script>
-import { sha1 } from '@/util/sha1'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -79,10 +78,6 @@ export default {
     handleClick(index) {
       // 抛出事件 参数是第几个按钮 -1表示点了最前面的黑桃
       this.$emit('click', index)
-    },
-    getClassId(index) {
-      const name = this.buttonList[index]
-      return sha1(name)
     }
   }
 }
@@ -93,10 +88,7 @@ export default {
   /* overflow: hidden; */
   height: 38px;
   /* 最外层剪裁 用于去掉第一个按钮的左侧和最后一个按钮的右侧 */
-  border-top-left-radius: 23px; /* 22.8975 */
-  border-bottom-left-radius: 8px; /* 7.4125 */
-  border-bottom-right-radius: 28px; /* 27.735 */
-  border-top-right-radius: 4px; /* 4.1925 */
+  /* 参见main.css .slant-border */
 }
 .button-navigator-list {
   margin: 0;
@@ -119,12 +111,14 @@ export default {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  /* 参见main.css .slant-border-right */
   border-bottom-right-radius: 28px; /* 27.735 */
   border-top-right-radius: 4px; /* 4.1925 */
   cursor: pointer;
 }
 .button-navigator-item:nth-child(1) {
   overflow: hidden;
+  /* 参见main.css .slant-border-left */
   border-top-left-radius: 23px; /* 22.8975 */
   border-bottom-left-radius: 8px; /* 7.4125 */
 }
@@ -202,5 +196,21 @@ export default {
 }
 .button-navigator-text {
   color: #fff;
+}
+
+@media screen and (max-width: 1050px) {
+  .button-navigator-main {
+    padding: 0 23px 0 18px;
+  }
+}
+@media screen and (max-width: 950px) {
+  .button-navigator-main {
+    padding: 0 18px 0 13px;
+  }
+}
+@media screen and (max-width: 850px) {
+  .button-navigator-main {
+    padding: 0 13px 0 8px;
+  }
 }
 </style>
