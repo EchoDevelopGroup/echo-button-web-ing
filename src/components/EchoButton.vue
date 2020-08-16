@@ -3,7 +3,7 @@
     <!-- 按钮文本 -->
     <span class="echo-button-text">{{ text }}</span>
 
-    <!-- <img v-if="isNew === 1" src="@/assets/icon/new.png" alt="new" class="echo-button-new"> -->
+    <img v-if="isNew === 1" src="@/assets/icon/new.png" alt="new" class="echo-button-new">
 
     <!-- 按钮右边的小黑桃 -->
     <div class="echo-button-active-box">
@@ -95,9 +95,9 @@ export default {
 .echo-button-new {
   position: absolute;
   display: block;
-  top: -20px;
-  left: -15px;
-  width: 40px;
+  top: -4px;
+  left: -4px;
+  width: 30px;
   height: auto;
 }
 .echo-button-text {
