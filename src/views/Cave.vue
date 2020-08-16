@@ -53,6 +53,7 @@ export default {
     async handleSend() {
       try {
         api.uploadCave(this.text, this.publicCondemn ? 1 : 0)
+        this.$message.success('发送成功！')
       } catch (err) {
         this.$message.error(err.message)
       }
