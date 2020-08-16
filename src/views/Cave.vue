@@ -1,6 +1,6 @@
 <template>
   <div class="cave">
-    <h2>这是树洞板块的标题</h2>
+    <h2>桃树洞</h2>
     <el-input
       type="textarea"
       :rows="10"

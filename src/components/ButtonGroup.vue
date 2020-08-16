@@ -22,7 +22,7 @@ export default {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  align-items: start;
+  align-items: flex-start;
   background-color: #ffa6c6;
   border-radius: 12px;
   min-height: 122px;

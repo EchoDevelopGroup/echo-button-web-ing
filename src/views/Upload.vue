@@ -195,7 +195,7 @@ export default {
 }
 .upload-actions {
   margin: 20px auto;
-  width: 600px;
+  max-width: 600px;
 }
 .upload-actions-button {
   margin-top: 20px;

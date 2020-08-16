@@ -27,21 +27,18 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 1040px;
-  /*height: 100px;*/
   padding: 0 20px;
   border-radius: 12px;
   border-bottom-right-radius: 55px;
   background-color: #fa96a3;
   font-size: 19px;
   color: #fff;
-  white-space: pre;
   text-align: left;
+  word-break: break-all;
 }
 .upload-notice-text {
   width: 100%;
   /* 5.2em = 1.3em * 4 */
-  /*height: 5.2em;*/
   font-size: 16px;
   line-height: 1.3em;
 }
