@@ -28,7 +28,7 @@ export default {
   justify-content: center;
   align-items: center;
   width: 1040px;
-  height: 100px;
+  /*height: 100px;*/
   padding: 0 20px;
   border-radius: 12px;
   border-bottom-right-radius: 55px;
@@ -41,7 +41,7 @@ export default {
 .upload-notice-text {
   width: 100%;
   /* 5.2em = 1.3em * 4 */
-  height: 5.2em;
+  /*height: 5.2em;*/
   font-size: 16px;
   line-height: 1.3em;
 }

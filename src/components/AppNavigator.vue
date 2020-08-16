@@ -8,7 +8,8 @@
       </a>
 
       <!-- 录播站按钮 -->
-      <a href="https://rec.sepeach.com/" class="app-navigator-link-button primary-shadow">Echo录播存放处</a>
+      <a href="https://space.bilibili.com/456368455" class="app-navigator-link-button primary-shadow">@黑桃影</a>
+      <a href="https://space.bilibili.com/626224308" class="app-navigator-link-button primary-shadow">@小嫩桃开发团</a>
 
       <!-- 占满水平剩余宽度的占位div -->
       <div class="app-navigator-placeholder"></div>

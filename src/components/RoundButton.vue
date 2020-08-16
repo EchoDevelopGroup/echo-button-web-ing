@@ -8,6 +8,8 @@
   >
     <!-- 根据which选择其中一张图片显示 -->
     <img v-if="which === 'upload'" src="@/assets/icon/upload.png" :alt="alt" class="round-button-img" :style="{ height }">
+    <!--  树洞icon  -->
+    <img v-else-if="which === 'cave'" src="@/assets/icon/cave.png" :alt="alt" class="round-button-img" :style="{ height }">
     <img v-else src="@/assets/icon/audit.png" :alt="alt" class="round-button-img" :style="{ height }">
   </a>
 </template>
@@ -39,7 +41,14 @@ export default {
     },
     // 图标高度
     height() {
-      return this.which === 'upload' ? '27px' : '14px'
+      // return this.which === 'upload' ? '27px' : '14px'
+      if (this.which === 'upload') {
+        return '27px'
+      } else if (this.which === 'audit') {
+        return '14px'
+      } else {
+        return '44px'
+      }
     }
   },
   methods: {
