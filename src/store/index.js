@@ -88,8 +88,18 @@ export default new Vuex.Store({
     displayClassId: state => state.displayClassId,
     config: state => state.config,
     isHat: state => state.isHat,
-    // 按钮分类列表 字符串数组
+    // 按钮分类列表 类型 string[]
     buttonClassificationList: state => state.overview.map(it => it.button_classification),
+
+    // 按钮分类列表 类型 {name:string, hash:string}[]
+    buttonClassificationListWithHash: (state, getters) => {
+      return getters.buttonClassificationList.map(name => {
+        return {
+          name,
+          hash: sha1(name)
+        }
+      })
+    },
 
     // 以按钮分类名hash为key的map
     buttonListHashMap: state => {
@@ -126,7 +136,11 @@ export default new Vuex.Store({
     getButtonById: (_, getters) => id => getters.buttonList.find(it => it.voice_id === id),
 
     // 播放器配置
-    playerConfig: state => state.player
+    playerConfig: state => state.player,
+
+    // 浏览器内屏幕宽高
+    clientWidth: state => state.view.width,
+    clientHeight: state => state.view.height
   },
   mutations: {
     setOverview(state, overview) {

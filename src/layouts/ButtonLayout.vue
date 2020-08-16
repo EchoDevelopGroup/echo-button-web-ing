@@ -3,17 +3,18 @@
   <div class="button-layout">
     <div class="button-layout-navigator">
       <!-- 左侧的按钮组列表 导航组 -->
-      <button-navigator :button-list="buttons" @click="handleClickNavigator"></button-navigator>
+      <button-navigator :button-list="buttons" @click="handleClickNavigator" v-if="!showMobileNavigator"></button-navigator>
+      <button-navigator-mobile :button-list="buttons" @click="handleClickNavigator" v-else></button-navigator-mobile>
       <div class="button-layout-navigator-placeholder"></div>
 
       <!-- 上传和审核按钮 -->
       <router-link to="/upload" class="button-layout-navigator-button" v-slot="{ href, navigate }">
         <round-button :href="href" which="upload" @click="navigate"></round-button>
       </router-link>
-      <router-link to="/audit" class="button-layout-navigator-button" v-slot="{ href, navigate }">
+      <router-link v-if="showExtendButton" to="/audit" class="button-layout-navigator-button" v-slot="{ href, navigate }">
         <round-button :href="href" which="audit" @click="navigate"></round-button>
       </router-link>
-      <router-link to="/cave" class="button-layout-navigator-button" v-slot="{ href, navigate }">
+      <router-link v-if="showExtendButton" to="/cave" class="button-layout-navigator-button" v-slot="{ href, navigate }">
         <round-button :href="href" which="cave" @click="navigate"></round-button>
       </router-link>
     </div>
@@ -50,9 +51,9 @@
 
 <script>
 import ButtonNavigator from '@/components/ButtonNavigator'
+import ButtonNavigatorMobile from '@/components/ButtonNavigatorMobile'
 import RoundButton from '@/components/RoundButton'
 import { mapGetters, mapMutations, mapActions } from 'vuex'
-import { sha1 } from '../util/sha1'
 import { AnimationController } from '../util/animation'
 
 function wait(time) {
@@ -72,6 +73,7 @@ export default {
   name: 'ButtonLayout',
   components: {
     ButtonNavigator,
+    ButtonNavigatorMobile,
     RoundButton
   },
   data() {
@@ -88,7 +90,8 @@ export default {
   computed: {
     ...mapGetters({
       config: 'config',
-      buttons: 'buttonClassificationList'
+      buttons: 'buttonClassificationListWithHash',
+      clientWidth: 'clientWidth'
     }),
     // 是否启用快速动画
     fastAnimation() {
@@ -109,6 +112,14 @@ export default {
     // 当前动画速度等级下 进入和退出动画各多久
     timeSerial() {
       return timeMap[this.animationLevel] || timeMap[3] // 配置错误就按中等速度来
+    },
+    // 是否显示手机端导航
+    showMobileNavigator() {
+      return this.clientWidth < 750
+    },
+    // 是否显示上传页面和树洞页面的入口按钮
+    showExtendButton() {
+      return this.clientWidth > 600
     }
   },
   watch: {
@@ -144,7 +155,7 @@ export default {
             // 友情链接
             this.$router.push('/links').catch(() => {})
           } else {
-            const targetId = sha1(this.buttons[index])
+            const targetId = this.buttons[index].hash
             const currentId = this.$route.params.id
             // 看一下点击的目标是不是当前页面
             if (targetId !== currentId) {
@@ -289,6 +300,15 @@ export default {
   height: auto;
   transform: scale(0);
 }
+@media screen and (max-width: 850px) {
+  .transition-space-anchor {
+    width: 240vh;
+    height: 276vh;
+  }
+  .transition-spade-img {
+    width: 240vh;
+  }
+}
 .transition-spade-img-expand {
   transform: scale(1);
 }
@@ -314,5 +334,21 @@ export default {
 .transition-spade-img-5 {
   transition: transform 0.4s linear,
     opacity 0.2s linear;
+}
+
+@media screen and (max-width: 1050px) {
+  .button-layout {
+    padding: 30px;
+  }
+}
+@media screen and (max-width: 950px) {
+  .button-layout {
+    padding: 20px;
+  }
+}
+@media screen and (max-width: 850px) {
+  .button-layout {
+    padding: 12px;
+  }
 }
 </style>

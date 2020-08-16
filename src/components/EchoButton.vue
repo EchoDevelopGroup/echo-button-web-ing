@@ -84,9 +84,9 @@ export default {
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  height: 30px;
+  text-align: left;
   margin: 6px;
-  padding: 0 8px 0 22px;
+  padding: 5px 8px 5px 22px;
   border-radius: 15px;
   background-color: #fd507e;
   transition: background-color 0.4s;

@@ -55,7 +55,7 @@ export default {
 }
 .app-footer {
   box-sizing: border-box;
-  min-width: 1000px;
+  /* min-width: 1000px; */
   padding: 12px 0;
   background-color: #ffa6c6;
   font-size: 14px;
@@ -76,10 +76,11 @@ export default {
   margin: 4px 0;
 }
 
-@media screen and (max-width: 1110px) {
+/* 1134 = 1030 + 40 * 2 + 12 * 2 */
+@media screen and (max-width: 1134px) {
   .main-layout-page-container {
-    width: 100%;
-    min-width: 1000px;
+    /* 这种写法会稍微在1140px左右大约20像素以内稍微有点不太好看 但没有溢出 暂时先这样 */
+    width: calc(100% - 24px);
   }
 }
 </style>

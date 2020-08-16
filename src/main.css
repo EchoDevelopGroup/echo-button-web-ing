@@ -8,3 +8,17 @@
    */
   box-shadow: 0.5px 1.3px 7.2px #963a5b5c;
 }
+.slant-border {
+  border-top-left-radius: 23px; /* 22.8975 */
+  border-bottom-left-radius: 8px; /* 7.4125 */
+  border-bottom-right-radius: 28px; /* 27.735 */
+  border-top-right-radius: 4px; /* 4.1925 */
+}
+.slant-border-left {
+  border-top-left-radius: 23px; /* 22.8975 */
+  border-bottom-left-radius: 8px; /* 7.4125 */
+}
+.slant-border-right {
+  border-bottom-right-radius: 28px; /* 27.735 */
+  border-top-right-radius: 4px; /* 4.1925 */
+}

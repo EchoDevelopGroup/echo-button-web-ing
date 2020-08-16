@@ -5,10 +5,11 @@
       <!-- 桃按钮网站图标 -->
       <a href="" class="app-navigator-logo-link">
         <img src="@/assets/logo-horizontal.png" alt="logo" title="桃按钮" class="app-navigator-logo">
+        <img src="@/assets/logo-round.png" alt="logo" title="桃按钮" class="app-navigator-logo-mobile">
       </a>
 
       <!-- 录播站按钮 -->
-      <a href="https://rec.sepeach.com/" class="app-navigator-link-button primary-shadow">Echo录播存放处</a>
+      <a href="https://rec.sepeach.com/" class="app-navigator-link-button primary-shadow">{{ recText }}</a>
 
       <!-- 占满水平剩余宽度的占位div -->
       <div class="app-navigator-placeholder"></div>
@@ -25,8 +26,18 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'AppNavigator',
+  computed: {
+    ...mapGetters({
+      clientWidth: 'clientWidth'
+    }),
+    recText() {
+      return this.clientWidth > 600 ? 'Echo录播存放处' : 'Echo录播站'
+    }
+  },
   methods: {
     handleEditVolume() {
       this.$alert('请自己调整系统音量', 'echo说', {
@@ -55,7 +66,7 @@ export default {
 <style>
 .app-navigator {
   width: 100%;
-  min-width: 1000px;
+  /* min-width: 1000px; */
   height: 50px;
   background-color: #fe76a1;
   background: linear-gradient(to right, #fec2d2, #fe6990);
@@ -80,6 +91,12 @@ export default {
 .app-navigator-logo {
   width: auto;
   height: 40px;
+  display: block;
+}
+.app-navigator-logo-mobile {
+  width: auto;
+  height: 40px;
+  display: none;
 }
 .app-navigator-link-button {
   margin-left: 20px;
@@ -110,6 +127,14 @@ export default {
 @media screen and (max-width: 1300px) {
   .app-navigator-frame {
     width: 100%;
+  }
+}
+@media screen and (max-width: 600px) {
+  .app-navigator-logo {
+    display: none;
+  }
+  .app-navigator-logo-mobile {
+    display: block;
   }
 }
 </style>

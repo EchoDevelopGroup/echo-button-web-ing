@@ -22,6 +22,7 @@ export default {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  align-items: start;
   background-color: #ffa6c6;
   border-radius: 12px;
   min-height: 122px;
@@ -34,5 +35,17 @@ export default {
   width: 160px;
   height: auto;
   opacity: 0.3;
+}
+@media screen and (max-width: 950px) {
+  .button-group {
+    margin-top: 20px;
+    padding: 12px 8px;
+  }
+}
+@media screen and (max-width: 850px) {
+  .button-group {
+    margin-top: 12px;
+    padding: 8px 6px;
+  }
 }
 </style>
