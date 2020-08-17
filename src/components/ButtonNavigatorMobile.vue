@@ -23,6 +23,11 @@
             <router-link :to="{ name: 'button', params: { id: item.hash } }" class="button-navigator-mobile-link">{{ item.name }}</router-link>
           </div>
         </li>
+        <li class="button-navigator-mobile-item">
+          <div class="button-navigator-mobile-clickable" @click="handleClick(-2)">
+            <router-link :to="{ name: 'cave' }" class="button-navigator-mobile-link">桃树洞</router-link>
+          </div>
+        </li>
       </ul>
     </div>
   </div>

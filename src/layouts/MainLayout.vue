@@ -48,14 +48,13 @@ export default {
 <style>
 .main-layout-page-container {
   width: 1110px;
-  min-height: 600px;
+  min-height: calc(100vh - 150px);
   margin: 15px auto;
   border-radius: 12px;
   background-color: #fff;
 }
 .app-footer {
   box-sizing: border-box;
-  /* min-width: 1000px; */
   padding: 12px 0;
   background-color: #ffa6c6;
   font-size: 14px;

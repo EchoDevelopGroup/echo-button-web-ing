@@ -170,6 +170,12 @@ export default {
             }
           }
         })
+      } else if (index === -2) {
+        this.$router.push({
+          name: 'cave'
+        }).catch(err => {
+          console.log('[Router] navigate to cave failed', err)
+        })
       }
     },
     // 启动切页动画
